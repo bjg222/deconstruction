@@ -1,0 +1,41 @@
+.supply {
+    display: grid;
+    grid-gap: 0;
+    place-content: center;
+    place-items: center;
+    margin: 0.3rem;
+    padding: 0.2rem;
+    box-sizing: content-box;
+    border: 0.25rem darkgray dashed;
+    .title {
+        font-size: 0.9rem;
+        place-self: center;
+        grid-area: -2 / 1 / -1 / -1;
+    }
+    &.tiles {
+        grid: repeat(100, 0.1rem) 1.25rem / repeat(100, 0.1rem);
+    }
+    &.widgets {
+        grid: repeat(50, 0.1rem) 1.25rem / repeat(50, 0.1rem);
+    }
+    &.materials {
+        grid: repeat(50, 0.1rem) 1.25rem / repeat(50, 0.1rem);
+    }
+    &.coins {
+        grid: repeat(75, 0.1rem) 1.25rem / repeat(75, 0.1rem);
+    }
+    &.workers {
+        display: flex;
+        width: 10rem;
+        height: 10rem;
+        place-content: center space-evenly;
+        flex-wrap: wrap;
+        .title {
+            display: none;
+        }
+        .worker {
+            margin: 0.5rem;
+            //flex: 0 0 auto;
+        }
+    }
+}

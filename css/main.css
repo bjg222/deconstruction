@@ -1,0 +1,389 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#add-player {
+  width: 6rem;
+  height: 6rem;
+  font-size: 4rem;
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  z-index: 99;
+}
+
+#table {
+  background: black;
+  color: white;
+  margin: 0;
+  padding: 0.25rem;
+  border: 0.75rem tan solid;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+#table #supply, #table #community, #table #players {
+  max-width: 100%;
+  min-height: 8rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  overflow: auto hidden;
+  padding: 0.3rem 0;
+}
+#table #supply div, #table #community div, #table #players div {
+  flex: 0 0 auto;
+}
+#table hr {
+  border: none;
+  border-bottom: slategray 0.15rem dotted;
+  margin: 0.3rem 0;
+  padding: 0;
+  width: 70%;
+}
+
+.board {
+  background: white;
+  color: black;
+  border: 0.25rem darkgray solid;
+  margin: 0.3rem;
+  padding: 0.2rem;
+  display: grid;
+  box-sizing: content-box;
+}
+.board:first-child {
+  margin-left: 0;
+}
+.board:last-child {
+  margin-right: 0;
+}
+.board.player {
+  grid: repeat(5, 5rem)/repeat(10, 5rem);
+  grid-gap: 0.3rem;
+  place-content: center;
+  place-items: stretch;
+}
+.board.community.actions {
+  grid: repeat(4, 6rem)/repeat(8, 6rem);
+  grid-gap: 0.3rem;
+  place-content: center;
+  place-items: stretch;
+}
+.board > div {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  font-size: 2rem;
+}
+.board > div.tile-space {
+  border: 0.1rem black dashed;
+  font-size: 1.35rem;
+}
+.board > div.action-space {
+  display: block;
+}
+.board > div.action-space .placement {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  place-content: center space-evenly;
+  place-items: center;
+  flex-flow: row wrap;
+  overflow: hidden;
+}
+.board > div.action-space .placement .worker-space {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.15rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+.board > div.action-space .title {
+  width: 100%;
+  height: 25%;
+  font-size: 0.9rem;
+  background: black;
+  color: white;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+.board > div.supply-space {
+  display: grid;
+  grid-gap: 0;
+  place-content: center;
+  place-items: center;
+  padding: 0.1rem;
+  border: 0.1rem darkgray dashed;
+}
+.board > div.supply-space.materials, .board > div.supply-space.widgets {
+  grid: repeat(35, 0.1rem) 1rem/repeat(98, 0.1rem);
+}
+.board > div.supply-space.coins {
+  grid: repeat(35, 0.1rem) 1rem/repeat(204, 0.1rem);
+}
+.board > div.supply-space .title {
+  font-size: 0.9rem;
+  place-self: center;
+  grid-area: -2 / 50 / -1 / -1;
+}
+.board > div.supply-space .value {
+  font-size: 0.9rem;
+  place-self: center;
+  grid-area: -2 / 1 / -1 / 50;
+}
+.board > div.supply-space.workers {
+  display: flex;
+  place-self: stretch;
+  place-content: center space-evenly;
+}
+.board > div.supply-space.workers .title, .board > div.supply-space.workers .value {
+  display: none;
+}
+.board > div.supply-space.workers .worker {
+  margin: 0.3rem;
+}
+.board > .label {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.board > .remove {
+  font-size: 3rem;
+  width: 4rem;
+  height: 4rem;
+  place-self: center;
+  grid-area: 2 / 1 / 3 / 2;
+}
+
+#player-1 {
+  background: lightblue;
+}
+
+#player-2 {
+  background: lightgreen;
+}
+
+#player-3 {
+  background: salmon;
+}
+
+#player-4 {
+  background: lightyellow;
+}
+
+#player-5 {
+  background: lightsalmon;
+}
+
+#player-6 {
+  background: plum;
+}
+
+#player-7 {
+  background: tan;
+}
+
+#player-8 {
+  background: ivory;
+}
+
+#actions {
+  background: lightgray;
+}
+
+.supply {
+  display: grid;
+  grid-gap: 0;
+  place-content: center;
+  place-items: center;
+  margin: 0.3rem;
+  padding: 0.2rem;
+  box-sizing: content-box;
+  border: 0.25rem darkgray dashed;
+}
+.supply .title {
+  font-size: 0.9rem;
+  place-self: center;
+  grid-area: -2 / 1 / -1 / -1;
+}
+.supply.tiles {
+  grid: repeat(100, 0.1rem) 1.25rem/repeat(100, 0.1rem);
+}
+.supply.widgets {
+  grid: repeat(50, 0.1rem) 1.25rem/repeat(50, 0.1rem);
+}
+.supply.materials {
+  grid: repeat(50, 0.1rem) 1.25rem/repeat(50, 0.1rem);
+}
+.supply.coins {
+  grid: repeat(75, 0.1rem) 1.25rem/repeat(75, 0.1rem);
+}
+.supply.workers {
+  display: flex;
+  width: 10rem;
+  height: 10rem;
+  place-content: center space-evenly;
+  flex-wrap: wrap;
+}
+.supply.workers .title {
+  display: none;
+}
+.supply.workers .worker {
+  margin: 0.5rem;
+}
+
+.tile, .widget, .material, .coin, .worker {
+  pointer-events: auto;
+}
+
+.tile {
+  width: 4rem;
+  height: 4rem;
+  background: white;
+  color: black;
+  border: darkslategray 0.1rem solid;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+  font-size: 1.2rem;
+}
+.tile .bolts:after, .tile .circuits:after {
+  margin-left: 0.2rem;
+}
+.tile .bolts:after {
+  content: 'B';
+}
+.tile .circuits:after {
+  content: 'C';
+}
+
+.widget, .material {
+  width: 1rem;
+  height: 1rem;
+  border: 0.1rem black solid;
+}
+
+.widget {
+  background: orange;
+}
+
+.material {
+  background: brown;
+}
+
+.coin {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: yellow;
+  font-size: 0.8rem;
+  display: flex;
+  color: black;
+  border: 0.1rem black solid;
+  place-content: center;
+  place-items: center;
+}
+
+.worker {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: white;
+  border: 0.1rem black solid;
+}
+.worker.player-1 {
+  background: navy;
+}
+.worker.player-2 {
+  background: darkgreen;
+}
+.worker.player-3 {
+  background: maroon;
+}
+.worker.player-4 {
+  background: goldenrod;
+}
+.worker.player-5 {
+  background: orangered;
+}
+.worker.player-6 {
+  background: purple;
+}
+.worker.player-7 {
+  background: brown;
+}
+.worker.player-8 {
+  background: gray;
+}
+
+.dragging-coin,
+.dragging-material,
+.dragging-widget,
+.dragging-tile,
+.dragging-worker {
+  cursor: grabbing;
+}
+.dragging-coin div,
+.dragging-material div,
+.dragging-widget div,
+.dragging-tile div,
+.dragging-worker div {
+  cursor: grabbing;
+}
+
+.dragging-coin .coins:not(.dragging-from),
+.dragging-material .materials:not(.dragging-from),
+.dragging-widget .widgets:not(.dragging-from),
+.dragging-tile .tiles:not(.dragging-from),
+.dragging-worker .workers:not(.dragging-from),
+.dragging-coin .coin-space:not(.dragging-from),
+.dragging-material .material-space:not(.dragging-from),
+.dragging-widget .widget-space:not(.dragging-from),
+.dragging-tile .tile-space:not(.dragging-from),
+.dragging-worker .worker-space:not(.dragging-from) {
+  outline: 0.3rem deeppink solid;
+  outline-offset: -0.2rem;
+  pointer-events: auto;
+}
+.dragging-coin .coins:not(.dragging-from).dragging-over,
+.dragging-material .materials:not(.dragging-from).dragging-over,
+.dragging-widget .widgets:not(.dragging-from).dragging-over,
+.dragging-tile .tiles:not(.dragging-from).dragging-over,
+.dragging-worker .workers:not(.dragging-from).dragging-over,
+.dragging-coin .coin-space:not(.dragging-from).dragging-over,
+.dragging-material .material-space:not(.dragging-from).dragging-over,
+.dragging-widget .widget-space:not(.dragging-from).dragging-over,
+.dragging-tile .tile-space:not(.dragging-from).dragging-over,
+.dragging-worker .worker-space:not(.dragging-from).dragging-over {
+  outline-style: dotted;
+}
+
+[draggable] {
+  user-select: none;
+  cursor: grab;
+  z-index: 100;
+}
+
+.dragging {
+  opacity: 0.65;
+  cursor: grabbing;
+}
+
+/*# sourceMappingURL=main.css.map */
