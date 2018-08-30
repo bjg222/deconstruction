@@ -9,18 +9,10 @@ html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#add-player {
-    width: 6rem;
-    height: 6rem;
-    font-size: 4rem;
-    position: absolute;
-    left: 2rem;
-    top: 2rem;
-    z-index: 99;
-}
-
 @import 'table';
 
 @import 'boards';
 @import 'supplies';
 @import 'objects';
+
+@import 'rules';

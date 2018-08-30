@@ -74,3 +74,11 @@ function removePlayer(e) {
     $('.' + $(this).parent().attr('id')).remove();
     $(this).parent().remove();
 }
+
+function showRules() {
+    $('#rules').css('display', 'flex');
+}
+
+function hideRules() {
+    $('#rules').hide();
+}

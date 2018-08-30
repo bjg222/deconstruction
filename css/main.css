@@ -9,16 +9,6 @@ html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#add-player {
-  width: 6rem;
-  height: 6rem;
-  font-size: 4rem;
-  position: absolute;
-  left: 2rem;
-  top: 2rem;
-  z-index: 99;
-}
-
 #table {
   background: black;
   color: white;
@@ -53,6 +43,16 @@ html {
   margin: 0.3rem 0;
   padding: 0;
   width: 70%;
+}
+
+#add-player {
+  width: 6rem;
+  height: 6rem;
+  font-size: 4rem;
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  z-index: 99;
 }
 
 .board {
@@ -384,6 +384,82 @@ html {
 .dragging {
   opacity: 0.65;
   cursor: grabbing;
+}
+
+#rules {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 12px;
+  background-blend-mode: darken;
+  background: rgba(125, 125, 125, 0.5);
+  display: none;
+  z-index: 200;
+  place-content: center;
+  place-items: center;
+}
+#rules > div {
+  position: relative;
+  width: 95vw;
+  height: 95vh;
+}
+#rules #rules-container {
+  padding: 1.5em;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: whitesmoke;
+  box-shadow: 0 0.2em 0.25em 0.05em black;
+}
+#rules h1, #rules h2, #rules h3, #rules h4, #rules h5, #rules h6 {
+  margin-bottom: 0.25em;
+  margin-top: 0.5em;
+}
+#rules h1 {
+  font-size: 2.5em;
+}
+#rules h2 {
+  font-size: 2em;
+}
+#rules h3 {
+  font-size: 1.75em;
+}
+#rules h4 {
+  font-size: 1.5em;
+}
+#rules h5 {
+  font-size: 1.25em;
+}
+#rules h6 {
+  font-size: 1.1em;
+}
+#rules p {
+  margin-bottom: 1.5em;
+}
+#rules li {
+  margin-left: 1.3em;
+}
+
+#show-rules {
+  width: 6rem;
+  height: 6rem;
+  font-size: 4rem;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  z-index: 99;
+}
+
+#hide-rules {
+  width: 2em;
+  height: 2em;
+  font-size: 1.5em;
+  position: absolute;
+  right: 1em;
+  top: 0.25em;
+  z-index: 99;
 }
 
 /*# sourceMappingURL=main.css.map */
