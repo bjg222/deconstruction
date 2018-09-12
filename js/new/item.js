@@ -17,11 +17,6 @@ class Item extends JQDiv {
         return this;
     }
 
-    appendTo(obj) {
-        (obj instanceof $ ? obj : $(obj)).append(this.$);
-        return this;
-    }
-
     get type() {
         return this._.type;
     }

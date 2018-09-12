@@ -43,18 +43,18 @@ const util = (function() {
         return (makeDraggable('div', cls, id, str));
     }
 
-    let assignGridArea = function($obj, grid, div) {
-        grid = util.parseGridAreaSize(grid);
-        div = util.parseGridAreaSize(grid);
-        let r = util.randInt(grid[0] - div[0]);
-        let c = util.randInt(grid[1] - div[1]);
-        $obj.css('grid-area', r + ' / ' + c + ' / ' + (r+div[0]) + ' / ' + (c+div[1]));
-    }
-
     let parseGridSize = function(size) {
         if (!(size instanceof Array))
             return [size, size];
         return size.slice(0,2);
+    }
+
+    let assignGridArea = function($obj, grid, div) {
+        grid = parseGridSize(grid);
+        div = parseGridSize(div);
+        let r = randInt(grid[0] - div[0]);
+        let c = randInt(grid[1] - div[1]);
+        $obj.css('grid-area', r + ' / ' + c + ' / ' + (r+div[0]) + ' / ' + (c+div[1]));
     }
 
     return {
@@ -77,15 +77,15 @@ class JQDivClasses {
         this.rep(vals);
     }
 
-    _normalize(v) {
-        if (v === undefined)
+    _normalize(v, rec) {
+        if (v === undefined || (typeof v === 'string' && !v.length))
             return [];
         if (typeof v === 'string')
             return v.split(' ');
-        //!!!!!!!!
-        v = [v];
-        v.forEach((o, i, a) => (typeof o === 'string' && o.includes(' ') ? a[i] = o.split(' ') : 0));
-        return v.flat(99);
+        if (!(v instanceof Array))
+            return v;
+        v.forEach((o, i, a) => a[i] = this._normalize(o, true));
+        return (rec ? v : v.flat(99));
     }
 
     set arr(v) {
@@ -132,6 +132,11 @@ class JQDiv {
     refreshClasses() {
         if (this._.obj)
             this._.obj.removeClass().addClass(this.classes);
+        return this;
+    }
+
+    appendTo(obj) {
+        (obj instanceof $ ? obj : $(obj)).append(this.$);
         return this;
     }
 
