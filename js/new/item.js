@@ -1,37 +1,25 @@
-class Item {
-    constructor(type, value) {
+class Item extends JQDiv {
+    constructor(type, value, gridSize, extraClasses) {
         if (type === undefined)
             throw 'Item needs a type';
-        this._ = {};
+        value = (value ? parseInt(value, 10) : undefined);
+        gridSize = util.parseGridSize(gridSize);
+        super(['item', 'draggable', type, (value ? 'value-' + value : []), (extraClasses ? extraClasses : [])]);
         this._.type = type;
-        this._.value = (value ? parseInt(value, 10) : undefined);
+        this._.value = value;
+        this._.gridSize = gridSize
+        this._.maker = util.makeDraggableDiv;
     }
 
-    updateObjectClasses() {
-        this._.classes = undefined;
-        if (this._.obj)
-            this._.obj.removeClass().addClass(this.classes);
-        return this;
-    }
-
-    assignGridArea(supply, item) {
-        supply = this.parseGridAreaSize(supply);
-        item = this.parseGridAreaSize(supply);
-        let r = util.randInt(supply[0] - object[0]);
-        let c = util.randInt(supply[1] - object[1]);
-        this.$.css('grid-area', r + ' / ' + c + ' / ' + (r+item[0]) + ' / ' + (c+item[1]));
+    appendToGrid(obj, size) {
+        util.assignGridArea(this.$, size, this._.gridSize);
+        this.appendTo(obj);
         return this;
     }
 
     appendTo(obj) {
         (obj instanceof $ ? obj : $(obj)).append(this.$);
         return this;
-    }
-
-    parseGridAreaSize(size) {
-        if (size.length = 1)
-            return [size, size];
-        return size.slice(0,2);
     }
 
     get type() {
@@ -42,22 +30,12 @@ class Item {
         return this._.value;
     }
 
-    get classes() {
-        if (!this._.classes) {
-            this._.classes = ['object', 'draggable', this.type];
-            if (this.value)
-                this._.classes.push('value-' + this.value);
-        }
-        return this._.classes.join(' ');
-    }
-
     get $() {
         if (this._.obj)
             return this._.obj;
+        super.$;
         if (this.value)
-            this._.obj = util.makeDraggableTextDiv(this.classes, undefined, this.value);
-        else
-            this._.obj = util.makeDraggableDiv(this.classes);
+            this._.obj.append(this.value);
         this._.obj.on('dragstart', ev => this.onDragStart(ev));
         this._.obj.on('dragend', ev => this.onDragEnd(ev));
         this._.obj.on('drag', ev => this.onDrag(ev));
@@ -87,7 +65,8 @@ class Item {
 
 class Tile extends Item {
     constructor(category, bolts, circuits) {
-        super('tile');
+        category = category[0].toLowerCase();
+        super('tile', undefined, 40, ['category-' + category, 'face-down']);
         this._.category = category;
         this._.bolts = bolts;
         this._.circuits = circuits;
@@ -95,8 +74,10 @@ class Tile extends Item {
     }
 
     flip() {
+        this._.classes.rem('face-' + this._.face);
         this._.face = (this._.face === 'down' ? 'up' : 'down');
-        this.updateObjectClasses();
+        this._.classes.add('face-' + this._.face);
+        this.refreshClasses();
         return this;
     }
 
@@ -116,15 +97,6 @@ class Tile extends Item {
         return this._.category;
     }
 
-    get classes() {
-        if (!this._.classes) {
-            super.classes;
-            this._.classes.push('category-' + this.category);
-            this._.classes.push('face-' + this.face);
-        }
-        return this._.classes.join(' ');
-    }
-
     get $() {
         if (this._.obj)
             return this._.obj;
@@ -138,7 +110,7 @@ class Tile extends Item {
 
 class Cube extends Item {
     constructor(type, value) {
-        super(type, value);
+        super(type, value, 10);
     }
 }
 
@@ -156,31 +128,26 @@ class Widget extends Cube {
 
 class Coin extends Item {
     constructor(value) {
-        super('coin', value);
+        super('coin', value, 20);
     }
 }
 
 class Worker extends Item {
     constructor(player) {
-        super('worker')
-        this._.player = (player ? parseInt(player, 10) : undefined);
+        player = (player ? parseInt(player, 10) : undefined);
+        super('worker', undefined, (player ? 'player-' + player : undefined));
+        this._.player = player;
     }
 
     set player(player) {
+        this._.classes.rem('player-' + this._.player);
         this._.player = (player ? parseInt(player, 10) : undefined);
-        this.updateObjectClasses();
+        if (player)
+            this._.classes.add('player-' + this._.player);
+        this.refreshClasses();
     }
 
     get player() {
         return this._.player;
-    }
-
-    get classes() {
-        if (!this._.classes) {
-            super.classes;
-            if (this.player)
-                this._.classes.push('player-' + this.player);
-        }
-        return this._.classes.join(' ');
     }
 }
