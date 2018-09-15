@@ -141,7 +141,11 @@ class JQDiv {
         div = util.parseGridSize(div);
         let r = util.randInt(grid[0] - div[0]);
         let c = util.randInt(grid[1] - div[1]);
-        this.$.css('grid-area', r + ' / ' + c + ' / ' + (r+div[0]) + ' / ' + (c+div[1]));
+        return this.setGridArea(r, c, r+div[0], c+div[1]);
+    }
+
+    setGridArea(rs, cs, re, ce) {
+        this.$.css('grid-area', rs + ' / ' + cs + ' / ' + re + ' / ' + ce);
         return this;
     }
 
@@ -159,5 +163,105 @@ class JQDiv {
         this._.obj = this._.maker(this.classes, this.id)
         this._.obj.data('obj', this);
         return this._.obj;
+    }
+}
+
+const WithPlayer = base => class extends (base) {
+    constructor(...args) {
+        super(...args);
+        this._.player = undefined;
+    }
+
+    set player(v) {
+        this._.classes.rem('player-' + this._.player);
+        this._.player = (v ? parseInt(v, 10) : undefined);
+        if (v)
+            this._.classes.add('player-' + v);
+        this.refreshClasses();
+    }
+
+    get player() {
+        return this._.player;
+    }
+}
+
+const WithCounter = base => class extends (base) {
+    constructor(...args) {
+        super(...args);
+        this._.counter = 0;
+    }
+
+    set counter(v) {
+        this._.counter = v;
+    }
+
+    get counter() {
+        return this._.counter;
+    }
+}
+
+const WithText = base => class extends (base) {
+    constructor(...args) {
+        super(...args);
+        this._.value = undefined;
+    }
+
+    set value(v) {
+        this._.value = v
+    }
+
+    get value() {
+        return this._.value;
+    }
+
+    get $() {
+        if (this._.obj)
+            return this._.obj;
+        super.$;
+        if (this.value)
+            this._.obj.append(this.value);
+        return this._.obj;
+    }
+}
+
+const WithValue = base => class extends (WithText(base)) {
+    set value(v) {
+        this._.classes.rem('value-' + this._.value);
+        this._.value = (v ? parseInt(v, 10) : undefined);
+        if (v)
+            this._.classes.add('value-' + v);
+        this.refreshClasses();
+    }
+
+    get value() {
+        return this._.value;
+    }
+}
+
+const WithChildDiv = base => class extends (base) {
+    get $() {
+        if (this._.obj)
+            return this._.obj;
+        super.$;
+        this._.obj.html(util.makeDiv().html(this._.obj.html()));
+        return this._.obj;
+    }
+}
+
+const WithTextInDiv = base => class extends (WithChildDiv(WithText(base))) {}
+
+const WithValueInDiv = base => class extends (WithChildDiv(WithValue(base))) {}
+
+const WithType = base => class extends (base) {
+    constructor(type, ...args) {
+        if (typeof type !== 'string')
+            throw 'Type is needed';
+        super(...args);
+        this._.type = type.toLowerCase();
+        this._.classes.add(type);
+    }
+
+    get type() {
+        return this._.type;
     }
 }

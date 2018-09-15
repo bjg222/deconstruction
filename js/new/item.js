@@ -1,15 +1,10 @@
-class Item extends JQDiv {
+class Item extends WithType(WithValue(JQDiv)) {
     constructor(type, value, gridSize, extraClasses) {
-        if (type === undefined)
-            throw 'Item needs a type';
-        type = type.toLowerCase();
-        value = (value ? parseInt(value, 10) : undefined);
         gridSize = util.parseGridSize(gridSize);
-        super(['item', 'draggable', type, (value ? 'value-' + value : ''), (extraClasses ? extraClasses : '')]);
-        this._.type = type;
-        this._.value = value;
+        super(type, ['item', 'draggable', extraClasses]);
         this._.gridSize = gridSize
         this._.maker = util.makeDraggableDiv;
+        this.value = value;
     }
 
     assignGridArea(div) {
@@ -20,16 +15,10 @@ class Item extends JQDiv {
         return this._.type;
     }
 
-    get value() {
-        return this._.value;
-    }
-
     get $() {
         if (this._.obj)
             return this._.obj;
         super.$;
-        if (this.value)
-            this._.obj.append(this.value);
         this._.obj.on('dragstart', ev => this.onDragStart(ev));
         this._.obj.on('dragend', ev => this.onDragEnd(ev));
         this._.obj.on('drag', ev => this.onDrag(ev));
@@ -126,22 +115,9 @@ class Coin extends Item {
     }
 }
 
-class Worker extends Item {
+class Worker extends WithPlayer(Item) {
     constructor(player) {
-        player = (player ? parseInt(player, 10) : undefined);
-        super('worker', undefined, (player ? 'player-' + player : undefined));
-        this._.player = player;
-    }
-
-    set player(player) {
-        this._.classes.rem('player-' + this._.player);
-        this._.player = (player ? parseInt(player, 10) : undefined);
-        if (player)
-            this._.classes.add('player-' + this._.player);
-        this.refreshClasses();
-    }
-
-    get player() {
-        return this._.player;
+        super('worker', undefined);
+        this.player = player;
     }
 }

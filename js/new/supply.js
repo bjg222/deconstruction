@@ -1,13 +1,9 @@
-class Supply extends JQDiv {
-    constructor(type, gridSize, extraClasses) {
-        if (type === undefined)
-            throw 'Supply needs a type';
+class Supply extends WithType(WithPlayer(WithCounter(JQDiv))) {
+    constructor(type, gridSize, player, extraClasses) {
         gridSize = util.parseGridSize(gridSize);
-        type = type.toLowerCase();
-        super(['supply', 'droppable', type + 's', (extraClasses ? extraClasses : '')])
-        this._.type = type;
+        super(type, ['supply', 'droppable', extraClasses])
         this._.gridSize = gridSize;
-        this._.counter = 0;
+        this.player = player;
     }
 
     appendItem(item) {
@@ -21,18 +17,6 @@ class Supply extends JQDiv {
 
     calcTotal() {
         return this.$.children().not('.title, .total').length;
-    }
-
-    get type() {
-        return this._.type;
-    }
-
-    set counter(v) {
-        this._.counter = v;
-    }
-
-    get counter() {
-        return this._.counter;
     }
 
     get $() {
@@ -59,7 +43,7 @@ class Supply extends JQDiv {
     }
 
     onDragLeave(ev) {
-        if (--this._.counter < 1)
+        if (--this.counter < 1)
             this.$.removeClass('dragging-over');
     }
 
@@ -79,8 +63,8 @@ class Supply extends JQDiv {
 }
 
 class TileSupply extends Supply {
-    constructor() {
-        super('tile', 100);
+    constructor(player) {
+        super('tile', 100, player);
     }
 
     processDrop($item) {
@@ -90,8 +74,8 @@ class TileSupply extends Supply {
 }
 
 class CubeSupply extends Supply {
-    constructor(type) {
-        super(type, 50);
+    constructor(type, player) {
+        super(type, 50, player);
     }
 
     calcTotal() {
@@ -104,20 +88,20 @@ class CubeSupply extends Supply {
 }
 
 class MaterialSupply extends CubeSupply {
-    constructor() {
-        super('material');
+    constructor(player) {
+        super('material', player);
     }
 }
 
 class WidgetSupply extends CubeSupply {
-    constructor() {
-        super('widget');
+    constructor(player) {
+        super('widget', player);
     }
 }
 
 class CoinSupply extends Supply {
-    constructor() {
-        super('coin', 75);
+    constructor(player) {
+        super('coin', 75, player);
     }
 
     calcTotal() {
@@ -130,8 +114,8 @@ class CoinSupply extends Supply {
 }
 
 class WorkerSupply extends Supply {
-    constructor() {
-        super('worker', undefined);
+    constructor(player) {
+        super('worker', undefined, player);
     }
 
     processDrop($item) {
