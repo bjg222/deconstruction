@@ -2,19 +2,18 @@ class Item extends JQDiv {
     constructor(type, value, gridSize, extraClasses) {
         if (type === undefined)
             throw 'Item needs a type';
+        type = type.toLowerCase();
         value = (value ? parseInt(value, 10) : undefined);
         gridSize = util.parseGridSize(gridSize);
-        super(['item', 'draggable', type, (value ? 'value-' + value : []), (extraClasses ? extraClasses : [])]);
+        super(['item', 'draggable', type, (value ? 'value-' + value : ''), (extraClasses ? extraClasses : '')]);
         this._.type = type;
         this._.value = value;
         this._.gridSize = gridSize
         this._.maker = util.makeDraggableDiv;
     }
 
-    appendToGrid(obj, size) {
-        util.assignGridArea(this.$, size, this._.gridSize);
-        this.appendTo(obj);
-        return this;
+    assignGridArea(div) {
+        return super.assignGridArea(div, this._.gridSize);
     }
 
     get type() {
@@ -41,7 +40,7 @@ class Item extends JQDiv {
         this.$.addClass('dragging');
         this.$.parent().addClass('dragging-from');
         $('body').addClass('dragging-' + this.type);
-        $('.' + this.type + 's .' + this.type + '-space').data('counter', 0);
+        $('.supply').each(function() { $(this).data('object').counter = 0; });
     }
 
     onDragEnd(ev) {
@@ -49,7 +48,7 @@ class Item extends JQDiv {
         $('.dragging-from').removeClass('dragging-from');
         $('.dragging-over').removeClass('dragging-over');
         $('body').removeClass('dragging-' + this.type);
-        $('.' + this.type + 's .' + this.type + '-space').data('counter', 0);
+        $('.supply').each(function() { $(this).data('object').counter = 0; });
     }
 
     onDrag(ev) {

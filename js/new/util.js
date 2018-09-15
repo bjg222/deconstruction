@@ -49,14 +49,6 @@ const util = (function() {
         return size.slice(0,2);
     }
 
-    let assignGridArea = function($obj, grid, div) {
-        grid = parseGridSize(grid);
-        div = parseGridSize(div);
-        let r = randInt(grid[0] - div[0]);
-        let c = randInt(grid[1] - div[1]);
-        $obj.css('grid-area', r + ' / ' + c + ' / ' + (r+div[0]) + ' / ' + (c+div[1]));
-    }
-
     return {
         range: range,
         randInt: randInt,
@@ -66,7 +58,6 @@ const util = (function() {
         makeTextDiv: makeTextDiv,
         makeDraggableDiv: makeDraggableDiv,
         makeDraggableTextDiv: makeDraggableTextDiv,
-        assignGridArea: assignGridArea,
         parseGridSize: parseGridSize
     };
 
@@ -135,8 +126,22 @@ class JQDiv {
         return this;
     }
 
+    append(obj) {
+        this.$.append(obj instanceof $ ? obj : $(obj));
+        return this;
+    }
+
     appendTo(obj) {
         (obj instanceof $ ? obj : $(obj)).append(this.$);
+        return this;
+    }
+
+    assignGridArea(grid, div) {
+        grid = util.parseGridSize(grid);
+        div = util.parseGridSize(div);
+        let r = util.randInt(grid[0] - div[0]);
+        let c = util.randInt(grid[1] - div[1]);
+        this.$.css('grid-area', r + ' / ' + c + ' / ' + (r+div[0]) + ' / ' + (c+div[1]));
         return this;
     }
 
@@ -152,5 +157,7 @@ class JQDiv {
         if (this._.obj)
             return this._.obj;
         this._.obj = this._.maker(this.classes, this.id)
+        this._.obj.data('obj', this);
+        return this._.obj;
     }
 }
