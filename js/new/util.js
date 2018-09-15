@@ -168,11 +168,11 @@ class JQDiv {
         div = util.parseGridSize(div);
         let r = util.randInt(grid[0] - div[0]);
         let c = util.randInt(grid[1] - div[1]);
-        return this.setGridArea(r, c, r+div[0], c+div[1]);
+        return this.setGridArea(r, c, div[0], div[1]);
     }
 
-    setGridArea(rs, cs, re, ce) {
-        this.$.css('grid-area', rs + ' / ' + cs + ' / ' + re + ' / ' + ce);
+    setGridArea(r, c, h, w) {
+        this.$.css('grid-area', r + ' / ' + c + ' / ' + (r+h) + ' / ' + (c+w));
         return this;
     }
 
