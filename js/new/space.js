@@ -4,6 +4,50 @@ class Space extends WithType(WithPlayer(WithValueInDiv(JQDiv))) {
         this.value = value;
         this.player = player;
     }
+
+    appendItem(item) {
+        return this.append(item.$);
+    }
+
+    get $() {
+        if (this._.obj)
+            return this._.obj;
+        super.$;
+        this._.obj.on('dragenter', ev => this.onDragEnter(ev));
+        this._.obj.on('dragover', ev => this.onDragOver(ev));
+        this._.obj.on('dragleave', ev => this.onDragLeave(ev));
+        this._.obj.on('drop', ev => this.onDrop(ev));
+        return this._.obj;
+    }
+
+    onDragEnter(ev) {
+        ev.preventDefault();
+        this.counter++;
+        this.$.addClass('dragging-over');
+    }
+
+    onDragOver(ev) {
+        ev.preventDefault();
+    }
+
+    onDragLeave(ev) {
+        if (--this.counter < 1)
+            this.$.removeClass('dragging-over');
+    }
+
+    onDrop(ev) {
+        ev.preventDefault();
+        let $item = $('.dragging');
+        let $start = $('dragging-from')
+        if (this.$.hasClass('dragging-from') || !$item.hasClass(this.type) || this.$.find('.' + this.type).length > 0 || !this.processDrop($item, $start))
+            return;
+        this.$.children().hide();
+        this.appendItem($item.css('grid-area', ''));
+    }
+
+    processDrop($item, $start) {
+        return true;
+    }
 }
 
 class Action extends WithPlayer(JQDiv) {

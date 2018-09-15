@@ -34,7 +34,7 @@ class Supply extends WithType(WithPlayer(WithCounter(JQDiv))) {
 
     onDragEnter(ev) {
         ev.preventDefault();
-       this.counter++;
+        this.counter++;
         this.$.addClass('dragging-over');
     }
 
@@ -51,26 +51,23 @@ class Supply extends WithType(WithPlayer(WithCounter(JQDiv))) {
         ev.preventDefault();
         let $item = $('.dragging');
         let $start = $('dragging-from')
-        if (this.$.hasClass('dragging-from') || !$item.hasClass(this.type) || !this.processDrop($item))
+        if (this.$.hasClass('dragging-from') || !$item.hasClass(this.type) || !this.processDrop($item, $start))
             return;
-        this.appendItem($item, $start);
+        this.appendItem($item);
+        if ($start.hasClass('space'))
+            $start.children().show();
         this.refreshTotal();
         $('.dragging-from').data('object').refreshTotal();
     }
 
     processDrop($item, $start) {
-        return false;
+        return true;
     }
 }
 
 class TileSupply extends Supply {
     constructor(player) {
         super('tile', 100, player);
-    }
-
-    processDrop($item, $start) {
-        if ($start.hasClass('tile-space'))
-            $start.children().show();
     }
 }
 
@@ -81,10 +78,6 @@ class CubeSupply extends Supply {
 
     calcTotal() {
         return this.$.children().not('.title, .total').map(function() { return parseInt($(this).text()); }).get().reduce((s,v) => (s + v));
-    }
-
-    processDrop($item, $start) {
-        return true;
     }
 }
 
@@ -108,10 +101,6 @@ class CoinSupply extends Supply {
     calcTotal() {
         return this.$.children().not('.title, .total').map(function() { return parseInt($(this).text()); }).get().reduce((s,v) => (s + v));
     }
-
-    processDrop($item, $start) {
-        return true;
-    }
 }
 
 class WorkerSupply extends Supply {
@@ -125,7 +114,5 @@ class WorkerSupply extends Supply {
 
     processDrop($item, $start) {
         $item.data('object').player(this.$.parent().hasClass('player') ? this.$.parent().attr('id') : undefined);
-        if ($start.hasClass('worker-space'))
-            $start.children().show();
     }
 }
