@@ -43,10 +43,29 @@ const util = (function() {
         return (makeDraggable('div', cls, id, str));
     }
 
-    let parseGridSize = function(size) {
-        if (!(size instanceof Array))
-            return [size, size];
-        return size.slice(0,2);
+    // let parseGridSize = function(size) {
+    //     if (!(size instanceof Array))
+    //         return [size, size];
+    //     return size.slice(0,2);
+    // }
+
+    let getSizeOf = function(obj) {
+        if (!(obj instanceof $))
+            obj = $(obj);
+        return [parseFloat(obj.css('height')), parseFloat(obj.css('width'))];
+    }
+
+    let getGridSizeOf = function(obj) {
+        if (!(obj instanceof $))
+            obj = $(obj);
+        if (obj.display().toLowerCase() !== 'grid')
+            return undefined;
+        let grid = obj.css('grid')
+        let rows = grid.split('/')[0].trim().split(' ');
+        let cols = grid.split('/')[1].trim().split(' ');
+        rows = rows.lastIndexOf(rows[0]) + 1;
+        cols = cols.lastIndexOf(cols[0]) + 1;
+        return [rows, cols, parseFloat(rows[0]), parseFloat(cols[0])];
     }
 
     return {
@@ -58,7 +77,9 @@ const util = (function() {
         makeTextDiv: makeTextDiv,
         makeDraggableDiv: makeDraggableDiv,
         makeDraggableTextDiv: makeDraggableTextDiv,
-        parseGridSize: parseGridSize
+        // parseGridSize: parseGridSize,
+        getSizeOf: getSizeOf,
+        getGridSizeOf: getGridSizeOf
     };
 
 }());
@@ -123,6 +144,12 @@ class JQDiv {
     refreshClasses() {
         if (this._.obj)
             this._.obj.removeClass().addClass(this.classes);
+        return this;
+    }
+
+    refreshId() {
+        if (this._.obj)
+            this._.obj.attr('id', this.id);
         return this;
     }
 

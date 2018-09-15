@@ -1,12 +1,12 @@
 class Supply extends WithType(WithPlayer(WithCounter(JQDiv))) {
-    constructor(type, gridSize, player, extraClasses) {
-        gridSize = util.parseGridSize(gridSize);
+    constructor(type, player, extraClasses) {
         super(type, ['supply', 'droppable', extraClasses])
-        this._.gridSize = gridSize;
         this.player = player;
     }
 
     appendItem(item) {
+        if (!this._.gridSize)
+            this._.gridSize = util.getGridSizeOf(this.$);
         return this.append(item.assignGridArea(this._.gridSize).$).refreshTotal()
     }
 
@@ -50,14 +50,15 @@ class Supply extends WithType(WithPlayer(WithCounter(JQDiv))) {
     onDrop(ev) {
         ev.preventDefault();
         let $item = $('.dragging');
+        let $start = $('dragging-from')
         if (this.$.hasClass('dragging-from') || !$item.hasClass(this.type) || !this.processDrop($item))
             return;
-        this.appendItem($item);
+        this.appendItem($item, $start);
         this.refreshTotal();
         $('.dragging-from').data('object').refreshTotal();
     }
 
-    processDrop($item) {
+    processDrop($item, $start) {
         return false;
     }
 }
@@ -67,22 +68,22 @@ class TileSupply extends Supply {
         super('tile', 100, player);
     }
 
-    processDrop($item) {
-        if ($('.dragging-from').hasClass('tile-space'))
-            $('.dragging-from').children().show();
+    processDrop($item, $start) {
+        if ($start.hasClass('tile-space'))
+            $start.children().show();
     }
 }
 
 class CubeSupply extends Supply {
     constructor(type, player) {
-        super(type, 50, player);
+        super(type, player);
     }
 
     calcTotal() {
         return this.$.children().not('.title, .total').map(function() { return parseInt($(this).text()); }).get().reduce((s,v) => (s + v));
     }
 
-    processDrop($item) {
+    processDrop($item, $start) {
         return true;
     }
 }
@@ -101,26 +102,30 @@ class WidgetSupply extends CubeSupply {
 
 class CoinSupply extends Supply {
     constructor(player) {
-        super('coin', 75, player);
+        super('coin', player);
     }
 
     calcTotal() {
         return this.$.children().not('.title, .total').map(function() { return parseInt($(this).text()); }).get().reduce((s,v) => (s + v));
     }
 
-    processDrop($item) {
+    processDrop($item, $start) {
         return true;
     }
 }
 
 class WorkerSupply extends Supply {
     constructor(player) {
-        super('worker', undefined, player);
+        super('worker', player);
     }
 
-    processDrop($item) {
-        $('.dragging').data('object').player(this.$.parent().hasClass('player') ? this.$.parent().attr('id') : undefined);
-        if ($('.dragging-from').hasClass('worker-space'))
-            $('.dragging-from').children().show();
+    appendItem(item) {
+        return this.append(item.$).refreshTotal()
+    }
+
+    processDrop($item, $start) {
+        $item.data('object').player(this.$.parent().hasClass('player') ? this.$.parent().attr('id') : undefined);
+        if ($start.hasClass('worker-space'))
+            $start.children().show();
     }
 }

@@ -1,14 +1,14 @@
 class Item extends WithType(WithValue(JQDiv)) {
-    constructor(type, value, gridSize, extraClasses) {
-        gridSize = util.parseGridSize(gridSize);
+    constructor(type, value, extraClasses) {
         super(type, ['item', 'draggable', extraClasses]);
-        this._.gridSize = gridSize
         this._.maker = util.makeDraggableDiv;
         this.value = value;
     }
 
-    assignGridArea(div) {
-        return super.assignGridArea(div, this._.gridSize);
+    assignGridArea(parentGridSize) {
+        if (!this._.gridSize)
+            this._.gridSize = util.getSizeOf(this.$);
+        return super.assignGridArea(parentGridSize.slice(0,2), this._.gridSize.map((e,i) => (e / parentGridSize[i+2])));
     }
 
     get type() {
@@ -119,5 +119,9 @@ class Worker extends WithPlayer(Item) {
     constructor(player) {
         super('worker', undefined);
         this.player = player;
+    }
+
+    assignGridArea() {
+        throw 'Not implemented';
     }
 }
