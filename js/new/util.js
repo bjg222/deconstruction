@@ -153,6 +153,16 @@ class JQDiv {
         return this;
     }
 
+    prepend(obj) {
+        this.$.prepend(obj instanceof $ ? obj : $(obj));
+        return this;
+    }
+
+    prependTo(obj) {
+        (obj instanceof $ ? obj : $(obj)).prepend(this.$);
+        return this;
+    }
+
     append(obj) {
         this.$.append(obj instanceof $ ? obj : $(obj));
         return this;

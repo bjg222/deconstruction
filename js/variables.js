@@ -1,6 +1,3 @@
-var players = 0;
-
-var coinDenominations = [1, 5, 10, 25];
 
 var playerStartsWith = {
     workers: 3,
@@ -25,7 +22,7 @@ var supplyStartsWithPerPlayer = {
     widgets: 25
 }
 
-var playerBoardLayouts = [
+var playerTileSpaces = [
     [[3,2],[3,3],[3,4],[2,4],[4,4],[3,5],[3,6],[3,7],[2,7],[4,7],[3,8],[3,9]],
     [[3,3],[3,4],[2,4],[4,4],[2,5],[4,5],[2,6],[4,6],[2,7],[4,7],[3,7],[3,8]],
     [[3,2],[3,3],[4,3],[4,4],[4,5],[3,5],[2,5],[4,6],[4,7],[3,7],[3,8],[3,9]],
@@ -38,13 +35,13 @@ var playerBoardLayouts = [
     [[3,2],[3,3],[3,4],[2,4],[4,4],[3,5],[3,6],[2,6],[2,7],[2,8],[3,8],[3,9]]
 ];
 
-var playerBoardActions = [
+var playerActions = [
     ['-1 B', 1, [1,8]],
     ['-1 C', 1, [1,9]],
     ['Sell Tile', 2, [1,10]]
 ]
 
-var communityBoardActions = [
+var communityActions = [
     ['+1 Worker', 4, [2,2]],
     ['-1 B', 1, [2,3]],
     ['-1 C', 1, [2,4]],

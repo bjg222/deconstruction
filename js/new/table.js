@@ -1,6 +1,7 @@
 class Section extends JQDiv {
     constructor(name, extraClasses) {
         super([name, extraClasses]);
+        this._.boards = [];
     }
 
     get boards() {
@@ -38,7 +39,7 @@ class Community extends Section {
         if (this._.obj)
             return this._.obj;
         super.$;
-        this.addBoard(this._.supplies).addBoard(this._.actions);
+        this.addBoard(this.supplies).addBoard(this.actions);
         return this._.obj;
     }
 }
@@ -86,7 +87,7 @@ class Table extends JQDiv {
         if (this._.obj)
             return this._.obj;
         super.$;
-        this.addSection(this._.community).append('<hr>').addSection(this._.players);
+        this.addSection(this.community).append('<hr>').addSection(this.players);
         return this._.obj;
     }
 }

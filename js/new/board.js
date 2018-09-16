@@ -35,6 +35,14 @@ class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
         return this.addChild(...args);
     }
 
+    addSupply(...args) {
+        return this.addChild(...args);
+    }
+
+    get supplies() {
+        return this.children.filter(c => c instanceof Supply);
+    }
+
     get actions() {
         return this.children.filter(c => c instanceof Action);
     }
