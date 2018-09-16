@@ -145,19 +145,30 @@ html {
 .supply:not(.board) .total:empty::after {
   content: '0';
 }
-.supply.widget:not(.board),
-.supply.material:not(.board) {
+.board.supply .supply.widget:not(.board),
+.board.supply .supply.material:not(.board) {
   grid-template-rows: repeat(42, 0.1rem) 1.25rem;
 }
-.supply.tile:not(.board), .supply.coin:not(.board) {
+.board.supply .supply.tile:not(.board), .board.supply .supply.coin:not(.board) {
   grid-template-rows: repeat(105, 0.1rem) 1.25rem;
 }
-.supply.widget:not(.board),
-.supply.material:not(.board), .supply.coin:not(.board) {
+.board.supply .supply.widget:not(.board),
+.board.supply .supply.material:not(.board), .board.supply .supply.coin:not(.board) {
   grid-template-columns: repeat(74, 0.1rem);
 }
-.supply.tile:not(.board) {
+.board.supply .supply.tile:not(.board) {
   grid-template-columns: repeat(157, 0.1rem);
+}
+.board.player .supply.widget:not(.board),
+.board.player .supply.material:not(.board), .board.player .supply.coin:not(.board) {
+  grid-template-rows: repeat(42, 0.1rem) 1.25rem;
+}
+.board.player .supply.widget:not(.board),
+.board.player .supply.material:not(.board) {
+  grid-template-columns: repeat(118, 0.1rem);
+}
+.board.player .supply.coin:not(.board) {
+  grid-template-columns: repeat(243, 0.1rem);
 }
 .board.supply .supply:not(.board).tile {
   grid-area: 1 / 1 / 3 / 3;
@@ -165,11 +176,20 @@ html {
 .board.supply .supply:not(.board).widget {
   grid-area: 1 / 3 / 2 / 4;
 }
+.board.player .supply:not(.board).widget {
+  grid-area: 5 / 9 / 6 / 11;
+}
 .board.supply .supply:not(.board).material {
   grid-area: 2 / 3 / 3 / 4;
 }
+.board.player .supply:not(.board).material {
+  grid-area: 5 / 1 / 6 / 3;
+}
 .board.supply .supply:not(.board).coin {
   grid-area: 1 / 4 / 3 / 5;
+}
+.board.player .supply:not(.board).coin {
+  grid-area: 5 / 4 / 6 / 8;
 }
 .supply:not(.board).worker {
   display: flex;
@@ -193,6 +213,9 @@ html {
 }
 .board.supply .supply:not(.board).worker {
   grid-area: 1 / 5 / 3 / 6;
+}
+.board.player .supply:not(.board).worker {
+  grid-area: 1 / 4 / 2 / 8;
 }
 
 .item.tile {

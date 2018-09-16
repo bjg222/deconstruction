@@ -1,7 +1,12 @@
-$one-row-height: ceil(10 * ($supply-row-height / 1rem - 1.25 - 0.25 * 2 - 0.1));
-$two-rows-height: ceil(10 * (2 * $supply-row-height / 1rem - 1.25 - 0.25 * 2 + 0.3 - 0.1));
-$one-col-width: ceil(10 * ($supply-col-width / 1rem - 0.25 * 2 - 0.1));
-$two-cols-width: ceil(10 * (2 * $supply-col-width / 1rem - 0.25 * 2 + 0.3 - 0.1));
+$supply-one-row-height: ceil(10 * ($supply-row-height / 1rem - 1.25 - 0.25 * 2 - 0.1));
+$supply-two-rows-height: ceil(10 * (2 * $supply-row-height / 1rem - 1.25 - 0.25 * 2 + 0.3 - 0.1));
+$supply-one-col-width: ceil(10 * ($supply-col-width / 1rem - 0.25 * 2 - 0.1));
+$supply-two-cols-width: ceil(10 * (2 * $supply-col-width / 1rem - 0.25 * 2 + 0.3 - 0.1));
+$player-one-row-height: ceil(10 * ($player-row-height / 1rem - 1.25 - 0.25 * 2 - 0.1));
+$player-one-col-width: ceil(10 * ($player-col-width / 1rem - 0.25 * 2 - 0.1));
+$player-two-cols-width: ceil(10 * (2 * $player-col-width / 1rem - 0.25 * 2 + 0.3 - 0.1));
+$player-three-cols-width: ceil(10 * (3 * $player-col-width / 1rem - 0.25 * 2 + 0.3 * 2 - 0.1));
+$player-four-cols-width: ceil(10 * (4 * $player-col-width / 1rem - 0.25 * 2 + 0.3 * 3 - 0.1));
 .supply:not(.board) {
     display: grid;
     grid-gap: 0;
@@ -27,41 +32,71 @@ $two-cols-width: ceil(10 * (2 * $supply-col-width / 1rem - 0.25 * 2 + 0.3 - 0.1)
             content: '0';
         }
     }
-    &%onerow {
-        grid-template-rows: repeat($one-row-height, 0.1rem) 1.25rem;
+    &%supply-one-row {
+        grid-template-rows: repeat($supply-one-row-height, 0.1rem) 1.25rem;
     }
-    &%tworows {
-        grid-template-rows: repeat($two-rows-height, 0.1rem) 1.25rem;
+    &%supply-two-rows {
+        grid-template-rows: repeat($supply-two-rows-height, 0.1rem) 1.25rem;
     }
-    &%onecol {
-        grid-template-columns: repeat($one-col-width, 0.1rem);
+    &%supply-one-col {
+        grid-template-columns: repeat($supply-one-col-width, 0.1rem);
     }
-    &%twocols {
-        grid-template-columns: repeat($two-cols-width, 0.1rem);
+    &%supply-two-cols {
+        grid-template-columns: repeat($supply-two-cols-width, 0.1rem);
+    }
+    &%player-one-row {
+        grid-template-rows: repeat($player-one-row-height, 0.1rem) 1.25rem;
+    }
+    &%player-one-col {
+        grid-template-columns: repeat($player-one-col-width, 0.1rem);
+    }
+    &%player-two-cols {
+        grid-template-columns: repeat($player-two-cols-width, 0.1rem);
+    }
+    &%player-three-cols {
+        grid-template-columns: repeat($player-three-cols-width, 0.1rem);
+    }
+    &%player-four-cols {
+        grid-template-columns: repeat($player-four-cols-width, 0.1rem);
     }
     &.tile {
-        @extend %tworows, %twocols;
         .board.supply & {
+            @extend %supply-two-rows, %supply-two-cols;
             grid-area: 1 / 1 / 3 / 3;
         }
     }
     &%cube {
-        @extend %onerow, %onecol;
+        .board.supply & {
+            @extend %supply-one-row, %supply-one-col;
+        }
+        .board.player & {
+            @extend %player-one-row, %player-two-cols;
+        }
     }
     &.widget {
         .board.supply & {
             grid-area: 1 / 3 / 2 / 4;
+        }
+        .board.player & {
+            grid-area: 5 / 9 / 6 / 11;
         }
     }
     &.material {
         .board.supply & {
             grid-area: 2 / 3 / 3 / 4;
         }
+        .board.player & {
+            grid-area: 5 / 1 / 6 / 3;
+        }
     }
     &.coin {
-        @extend %tworows, %onecol;
         .board.supply & {
+            @extend %supply-two-rows, %supply-one-col;
             grid-area: 1 / 4 / 3 / 5;
+        }
+        .board.player & {
+            @extend %player-one-row, %player-four-cols;
+            grid-area: 5 / 4 / 6 / 8;
         }
     }
     &.worker {
@@ -85,6 +120,9 @@ $two-cols-width: ceil(10 * (2 * $supply-col-width / 1rem - 0.25 * 2 + 0.3 - 0.1)
         }
         .board.supply & {
             grid-area: 1 / 5 / 3 / 6;
+        }
+        .board.player & {
+            grid-area: 1 / 4 / 2 / 8;
         }
     }
 }
