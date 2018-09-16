@@ -6,7 +6,7 @@ $(document).ready(function() {
     $('#add-player').on('click', ev => {
         let p = new PlayerBoard(++players);
         playerActions.forEach(a => p.addAction(new Action(a[0], a[1]), a[2]));
-        playerTileSpaces[util.randInt(playerTileSpaces.length)].forEach((a,i) => p.addTileSpace(new TileSpace(i+1, players), a));
+        playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach((a,i) => p.addTileSpace(new TileSpace(i+1, players), a));
         //TODO: Add items to supplies
         table.players.addPlayer(p);
     });

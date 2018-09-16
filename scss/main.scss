@@ -5,9 +5,13 @@
 }
 
 html {
-    font-size: 15px;
+    font-size: 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+// body {
+//     position: relative;
+// }
 
 @import 'table';
 @import 'board';

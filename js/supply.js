@@ -67,7 +67,7 @@ class Supply extends WithType(WithPlayer(WithCounter(JQDiv))) {
 
 class TileSupply extends Supply {
     constructor(player) {
-        super('tile', 100, player);
+        super('tile', player);
     }
 }
 

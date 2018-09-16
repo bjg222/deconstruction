@@ -100,6 +100,12 @@ class SupplyBoard extends Board {
         return this.children;
     }
 
+    get tiles() {
+        if (!this._.tiles)
+            this._.tiles = new TileSupply();
+        return this._.tiles
+    }
+
     get materials() {
         if (!this._.materials)
             this._.materials = new MaterialSupply();
@@ -128,6 +134,7 @@ class SupplyBoard extends Board {
         if (this._.obj)
             return this._.obj;
         super.$;
+        this.addSupply(this.tiles);
         this.addSupply(this.materials);
         this.addSupply(this.widgets);
         this.addSupply(this.coins);

@@ -49,23 +49,27 @@ const util = (function() {
     //     return size.slice(0,2);
     // }
 
+    let dummy;
     let getSizeOf = function(obj) {
         if (!(obj instanceof $))
             obj = $(obj);
+        if (obj.parent().length == 0) {
+            if (!dummy)
+                dummy = $('<div>').hide().appendTo('body');
+            obj.appendTo(dummy);
+        }
         return [parseFloat(obj.css('height')), parseFloat(obj.css('width'))];
     }
 
     let getGridSizeOf = function(obj) {
         if (!(obj instanceof $))
             obj = $(obj);
-        if (obj.display().toLowerCase() !== 'grid')
+        if (obj.css('display').toLowerCase() !== 'grid')
             return undefined;
         let grid = obj.css('grid')
         let rows = grid.split('/')[0].trim().split(' ');
         let cols = grid.split('/')[1].trim().split(' ');
-        rows = rows.lastIndexOf(rows[0]) + 1;
-        cols = cols.lastIndexOf(cols[0]) + 1;
-        return [rows, cols, parseFloat(rows[0]), parseFloat(cols[0])];
+        return [rows.lastIndexOf(rows[0]) + 1, cols.lastIndexOf(cols[0]) + 1, parseFloat(rows[0]), parseFloat(cols[0])];
     }
 
     return {
@@ -174,10 +178,8 @@ class JQDiv {
     }
 
     assignGridArea(grid, div) {
-        grid = util.parseGridSize(grid);
-        div = util.parseGridSize(div);
-        let r = util.randInt(grid[0] - div[0]);
-        let c = util.randInt(grid[1] - div[1]);
+        let r = util.randInt(1, grid[0] - div[0]);
+        let c = util.randInt(1, grid[1] - div[1]);
         return this.setGridArea(r, c, div[0], div[1]);
     }
 

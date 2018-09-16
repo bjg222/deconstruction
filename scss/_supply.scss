@@ -1,0 +1,90 @@
+$one-row-height: ceil(10 * ($supply-row-height / 1rem - 1.25 - 0.25 * 2 - 0.1));
+$two-rows-height: ceil(10 * (2 * $supply-row-height / 1rem - 1.25 - 0.25 * 2 + 0.3 - 0.1));
+$one-col-width: ceil(10 * ($supply-col-width / 1rem - 0.25 * 2 - 0.1));
+$two-cols-width: ceil(10 * (2 * $supply-col-width / 1rem - 0.25 * 2 + 0.3 - 0.1));
+.supply:not(.board) {
+    display: grid;
+    grid-gap: 0;
+    place-content: center;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    // margin: 0.3rem;
+    // padding: 0.2rem;
+    box-sizing: border-box;
+    border: 0.25rem darkgray dashed;
+    .title {
+        font-size: 0.9rem;
+        place-self: center end;
+        grid-area: -2 / 1 / -1 / -1;
+        text-transform: capitalize;
+    }
+    .total {
+        font-size: 0.9rem;
+        place-self: center start;
+        grid-area: -2 / 1 / -1 / -1;
+        &:empty::after{
+            content: '0';
+        }
+    }
+    &%onerow {
+        grid-template-rows: repeat($one-row-height, 0.1rem) 1.25rem;
+    }
+    &%tworows {
+        grid-template-rows: repeat($two-rows-height, 0.1rem) 1.25rem;
+    }
+    &%onecol {
+        grid-template-columns: repeat($one-col-width, 0.1rem);
+    }
+    &%twocols {
+        grid-template-columns: repeat($two-cols-width, 0.1rem);
+    }
+    &.tile {
+        @extend %tworows, %twocols;
+        .board.supply & {
+            grid-area: 1 / 1 / 3 / 3;
+        }
+    }
+    &%cube {
+        @extend %onerow, %onecol;
+    }
+    &.widget {
+        .board.supply & {
+            grid-area: 1 / 3 / 2 / 4;
+        }
+    }
+    &.material {
+        .board.supply & {
+            grid-area: 2 / 3 / 3 / 4;
+        }
+    }
+    &.coin {
+        @extend %tworows, %onecol;
+        .board.supply & {
+            grid-area: 1 / 4 / 3 / 5;
+        }
+    }
+    &.worker {
+        display: flex;
+        place-content: center space-evenly;
+        flex-wrap: wrap;
+        position: relative;
+        .title,
+        .total {
+            position: absolute;
+            bottom: 0;
+        }
+        .title {
+            right: 0;
+        }
+        .total {
+            left: 0;
+        }
+        .worker {
+            margin: 0.4rem;
+        }
+        .board.supply & {
+            grid-area: 1 / 5 / 3 / 6;
+        }
+    }
+}

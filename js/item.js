@@ -8,7 +8,7 @@ class Item extends WithType(WithValue(JQDiv)) {
     assignGridArea(parentGridSize) {
         if (!this._.gridSize)
             this._.gridSize = util.getSizeOf(this.$);
-        return super.assignGridArea(parentGridSize.slice(0,2), this._.gridSize.map((e,i) => (e / parentGridSize[i+2])));
+        return super.assignGridArea(parentGridSize.slice(0,2), this._.gridSize.map((e,i) => Math.ceil(e / parentGridSize[i+2])));
     }
 
     get type() {

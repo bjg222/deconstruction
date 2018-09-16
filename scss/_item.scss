@@ -1,3 +1,8 @@
+.widget,
+.material {
+    @extend %cube;
+}
+
 .item {
     &.tile {
         width: 4rem;
@@ -35,14 +40,8 @@
         border: 0.1rem black solid;
         color: transparent;
     }
-    &.material {
-        @extend %cube;
-        background: orange;
-    }
-    &.widget {
-        @extend %cube;
-        background: brown;
-    }
+    &.material { background: orange; }
+    &.widget { background: brown; }
     &.coin {
         width: 2rem;
         height: 2rem;
