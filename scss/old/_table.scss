@@ -1,0 +1,47 @@
+#table {
+    background: black;
+    color: white;
+    margin: 0;
+    padding: 0.25rem;
+    border: 0.75rem tan solid;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    #supply, #community, #players {
+        max-width: 100%;
+        min-height: 8rem;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: flex-start;
+        overflow: auto hidden;
+        padding: 0.3rem 0;
+        div {
+            flex: 0 0 auto;
+        }
+    }
+
+    hr {
+        border: none;
+        border-bottom: slategray 0.15rem dotted;
+        margin: 0.3rem 0;
+        padding: 0;
+        width: 70%;
+    }
+}
+
+#add-player {
+    width: 6rem;
+    height: 6rem;
+    font-size: 4rem;
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+    z-index: 99;
+}

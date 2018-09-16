@@ -49,7 +49,7 @@ class Item extends WithType(WithValue(JQDiv)) {
 class Tile extends Item {
     constructor(category, bolts, circuits) {
         category = category[0].toLowerCase();
-        super('tile', undefined, 40, ['category-' + category, 'face-down']);
+        super('tile', undefined, ['category-' + category, 'face-down']);
         this._.category = category;
         this._.bolts = bolts;
         this._.circuits = circuits;
@@ -93,7 +93,7 @@ class Tile extends Item {
 
 class Cube extends Item {
     constructor(type, value) {
-        super(type, value, 10);
+        super(type, value);
     }
 }
 
@@ -111,13 +111,13 @@ class Widget extends Cube {
 
 class Coin extends Item {
     constructor(value) {
-        super('coin', value, 20);
+        super('coin', value);
     }
 }
 
 class Worker extends WithPlayer(Item) {
     constructor(player) {
-        super('worker', undefined);
+        super('worker');
         this.player = player;
     }
 

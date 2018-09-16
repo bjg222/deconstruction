@@ -1,0 +1,93 @@
+.item {
+    &.tile {
+        width: 4rem;
+        height: 4rem;
+        background: white;
+        color: black;
+        border: darkslategray 0.1rem solid;
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+        place-items: center;
+        font-size: 1.2rem;
+        .bolts:after, .circuits:after {
+            margin-left: 0.2rem;
+        }
+        .bolts:after {
+            content: 'B';
+        }
+        .circuits:after {
+            content: 'C';
+        }
+        .category {
+            font-size: 2.5rem;
+            text-transform: capitalize;
+        }
+        &.face-down .bolts,
+        &.face-down .circuits,
+        &.face-up .category {
+            display: none;
+        }
+    }
+    &%cube {
+        width: 1rem;
+        height: 1rem;
+        border: 0.1rem black solid;
+        color: transparent;
+    }
+    &.material {
+        @extend %cube;
+        background: orange;
+    }
+    &.widget {
+        @extend %cube;
+        background: brown;
+    }
+    &.coin {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background: gold;
+        font-size: 0.8rem;
+        display: flex;
+        color: black;
+        border: 0.1rem black solid;
+        place-content: center;
+        place-items: center;
+        &.value-1 {
+            width: 1.75rem;
+            height: 1.75rem;
+            background: peru;
+        }
+        &.value-5 {
+            width: 1.9rem;
+            height: 1.9rem;
+            background: sienna;
+        }
+        &.value-10 {
+            width: 2.1rem;
+            height: 2.1rem;
+            background: silver;
+        }
+        &.value-25 {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: gold;
+        }
+    }
+    &.worker {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        background: white;
+        border: 0.1rem black solid;
+        &.player-1 { background: navy; }
+        &.player-2 { background: darkgreen; }
+        &.player-3 { background: maroon; }
+        &.player-4 { background: goldenrod; }
+        &.player-5 { background: orangered; }
+        &.player-6 { background: purple; }
+        &.player-7 { background: brown; }
+        &.player-8 { background: gray; }
+    }
+}

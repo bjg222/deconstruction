@@ -1,0 +1,42 @@
+.dragging-coin,
+.dragging-material,
+.dragging-widget,
+.dragging-tile,
+.dragging-worker {
+    cursor: grabbing;
+    div {
+        cursor: grabbing;
+    }
+}
+
+.dragging-coin .supply.coin,
+.dragging-material .supply.material,
+.dragging-widget .supply.widget,
+.dragging-tile .supply.tile,
+.dragging-worker .supply.worker,
+.dragging-coin .space.coin,
+.dragging-material .space.material,
+.dragging-widget .space.widget,
+.dragging-tile .space.tile,
+.dragging-worker .space.worker {
+    &:not(.dragging-from) {
+        outline: 0.3rem deeppink solid;
+        outline-offset: -0.2rem;
+        pointer-events: auto;
+        &.dragging-over {
+            outline-style: dotted;
+        }
+    }
+}
+
+[draggable] {
+    pointer-events: auto;
+    user-select: none;
+    cursor: grab;
+    z-index: 100;
+}
+
+.dragging {
+    opacity: 0.65;
+    cursor: grabbing;
+}

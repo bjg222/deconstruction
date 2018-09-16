@@ -5,15 +5,14 @@
 }
 
 html {
-    font-size: 15px;
+    font-size: 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @import 'table';
-@import 'board';
-@import 'supply';
-@import 'space';
-@import 'item';
-@import 'draganddrop';
+
+@import 'boards';
+@import 'supplies';
+@import 'objects';
 
 @import 'rules';
