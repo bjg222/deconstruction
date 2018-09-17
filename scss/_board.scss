@@ -23,6 +23,20 @@ $player-col-width: $player-row-height;
     }
     &.player {
         grid: repeat(5, $player-row-height) / repeat(10, $player-col-width);
+        > :first-child {
+            grid-area: 1 / 1 / 2 / 2;
+            display: flex;
+            place-content: center;
+            place-items: center;
+            font-size: 2rem;
+        }
+        > .remove {
+            font-size: 3rem;
+            width: 4rem;
+            height: 4rem;
+            place-self: center;
+            grid-area: 2 / 1 / 3 / 2;
+        }
         &.player-1 { background: lightblue; }
         &.player-2 { background: lightgreen; }
         &.player-3 { background: salmon; }
@@ -39,15 +53,5 @@ $player-col-width: $player-row-height;
     &.supply {
         grid: repeat(2, $supply-row-height) / repeat(5, $supply-col-width);
         background: lightslategray;
-    }
-    > :first-child {
-        grid-area: 1 / 1 / 2 / 2;
-    }
-    > .remove {
-        font-size: 3rem;
-        width: 4rem;
-        height: 4rem;
-        place-self: center;
-        grid-area: 2 / 1 / 3 / 2;
     }
 }

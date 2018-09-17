@@ -78,6 +78,20 @@ html {
 .board.player {
   grid: repeat(5, 6rem)/repeat(10, 6rem);
 }
+.board.player > :first-child {
+  grid-area: 1 / 1 / 2 / 2;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  font-size: 2rem;
+}
+.board.player > .remove {
+  font-size: 3rem;
+  width: 4rem;
+  height: 4rem;
+  place-self: center;
+  grid-area: 2 / 1 / 3 / 2;
+}
 .board.player.player-1 {
   background: lightblue;
 }
@@ -109,16 +123,6 @@ html {
 .board.supply {
   grid: repeat(2, 6rem)/repeat(5, 8rem);
   background: lightslategray;
-}
-.board > :first-child {
-  grid-area: 1 / 1 / 2 / 2;
-}
-.board > .remove {
-  font-size: 3rem;
-  width: 4rem;
-  height: 4rem;
-  place-self: center;
-  grid-area: 2 / 1 / 3 / 2;
 }
 
 .supply:not(.board) {
@@ -215,7 +219,46 @@ html {
   grid-area: 1 / 5 / 3 / 6;
 }
 .board.player .supply:not(.board).worker {
-  grid-area: 1 / 4 / 2 / 8;
+  grid-area: 1 / 3 / 2 / 7;
+}
+
+.action .placement {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  place-content: center space-evenly;
+  place-items: center;
+  flex-flow: row wrap;
+  overflow: hidden;
+}
+.action .placement .space.worker {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.15rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+.action .title {
+  width: 100%;
+  height: 25%;
+  font-size: 0.9rem;
+  background: black;
+  color: white;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+
+.space.tile {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  border: 0.1rem black dashed;
+  font-size: 1.35rem;
 }
 
 .item.tile {

@@ -1,0 +1,41 @@
+.action {
+    //display: block;
+    .placement {
+        width: 100%;
+        height: 75%;
+        display: flex;
+        place-content: center space-evenly;
+        place-items: center;
+        flex-flow: row wrap;
+        overflow: hidden;
+        .space.worker {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin: 0.15rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            display: flex;
+            place-content: center;
+            place-items: center;
+        }
+    }
+    .title {
+        width: 100%;
+        height: 25%;
+        font-size: 0.9rem;
+        background: black;
+        color: white;
+        display: flex;
+        place-content: center;
+        place-items: center;
+    }
+}
+
+.space.tile {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    border: 0.1rem black dashed;
+    font-size: 1.35rem;
+}

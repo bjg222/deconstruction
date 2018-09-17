@@ -36,8 +36,8 @@ var playerTileSpaces = [
 ];
 
 var playerActions = [
-    ['-1 B', 1, [1,8]],
-    ['-1 C', 1, [1,9]],
+    ['-1 B',      1, [1,8]],
+    ['-1 C',      1, [1,9]],
     ['Sell Tile', 2, [1,10]]
 ]
 
