@@ -4,6 +4,18 @@ const util = (function() {
         return [...Array(n).keys()];
     }
 
+    let shuffle = function(arr) {
+        let counter = arr.length;
+        while (counter > 0) {
+            let index = Math.floor(Math.random() * counter);
+            counter--;
+            let temp = arr[counter];
+            arr[counter] = arr[index];
+            arr[index] = temp;
+        }
+        return arr;
+    }
+
     let randInt = function(l, u) {
         if (u === undefined) {
             u = l;
@@ -74,6 +86,7 @@ const util = (function() {
 
     return {
         range: range,
+        shuffle: shuffle,
         randInt: randInt,
         make: make,
         makeDraggable: makeDraggable,

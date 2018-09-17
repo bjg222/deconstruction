@@ -1,25 +1,25 @@
 
 var playerStartsWith = {
-    workers: 3,
-    materials: 50,
-    coins: {1: 5, 5: 2, 10: 2, 25: 1},
-    widgets: 0
+    worker: 3,
+    material: {1:10, 5:4, 10:2},
+    coin: {1: 5, 5: 2, 10: 2, 25: 1},
+    widget: 0
 }
 
 var supplyStartsWith = {
-    tiles: 15,
-    workers: 0,
-    materials: 30,
-    coins: {1: 10, 5: 5, 10: 5, 25: 4},
-    widgets: 50
+    tile: 15,
+    worker: 0,
+    material: {1:10, 5:3, 10:2},
+    coin: {1: 10, 5: 5, 10: 5, 25: 4},
+    widget: 50
 }
 
 var supplyStartsWithPerPlayer = {
-    tiles: 10,
-    workers: 3,
-    materials: 20,
-    coins: {1: 10, 5: 5, 10: 5, 25: 4},
-    widgets: 25
+    tile: 10,
+    worker: 3,
+    material: {1:5, 5:2, 10:1},
+    coin: {1: 10, 5: 5, 10: 5, 25: 4},
+    widget: {1:10, 5:2, 10:1}
 }
 
 var playerTileSpaces = [
