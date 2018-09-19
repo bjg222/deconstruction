@@ -35,16 +35,33 @@
         }
     }
     &%cube {
-        width: 1rem;
-        height: 1rem;
+        // width: 1rem;
+        // height: 1rem;
+        font-size: 0.8rem;
+        display: flex;
+        color: black;
         border: 0.1rem black solid;
-        color: transparent;
+        place-content: center;
+        place-items: center;
+        &.value-1 {
+            width: 1rem;
+            height: 1rem;
+            color: transparent;
+        }
+        &.value-5 {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        &.value-10 {
+            width: 1.4rem;
+            height: 1.4rem;
+        }
     }
     &.material { background: orange; }
     &.widget { background: brown; }
     &.coin {
-        width: 2rem;
-        height: 2rem;
+        // width: 2rem;
+        // height: 2rem;
         border-radius: 50%;
         background: gold;
         font-size: 0.8rem;

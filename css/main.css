@@ -291,10 +291,28 @@ html {
 }
 .item.widget,
 .item.material {
+  font-size: 0.8rem;
+  display: flex;
+  color: black;
+  border: 0.1rem black solid;
+  place-content: center;
+  place-items: center;
+}
+.item.value-1.widget,
+.item.value-1.material {
   width: 1rem;
   height: 1rem;
-  border: 0.1rem black solid;
   color: transparent;
+}
+.item.value-5.widget,
+.item.value-5.material {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.item.value-10.widget,
+.item.value-10.material {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 .item.material {
   background: orange;
@@ -303,8 +321,6 @@ html {
   background: brown;
 }
 .item.coin {
-  width: 2rem;
-  height: 2rem;
   border-radius: 50%;
   background: gold;
   font-size: 0.8rem;

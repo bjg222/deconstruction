@@ -50,14 +50,15 @@ class Supply extends WithType(WithPlayer(WithCounter(JQDiv))) {
     onDrop(ev) {
         ev.preventDefault();
         let $item = $('.dragging');
-        let $start = $('dragging-from')
+        let $start = $('.dragging-from')
         if (this.$.hasClass('dragging-from') || !$item.hasClass(this.type) || !this.processDrop($item, $start))
             return;
-        this.appendItem($item);
+        this.appendItem($item.data('obj'));
+        this.refreshTotal();
+        if ($start.hasClass('supply'))
+            $start.data('obj').refreshTotal();
         if ($start.hasClass('space'))
             $start.children().show();
-        this.refreshTotal();
-        $('.dragging-from').data('object').refreshTotal();
     }
 
     processDrop($item, $start) {
@@ -77,7 +78,7 @@ class CubeSupply extends Supply {
     }
 
     calcTotal() {
-        return this.$.children().not('.title, .total').map(function() { return parseInt($(this).text()); }).get().reduce((s,v) => (s + v));
+        return (this.$.children().not('.title, .total').length ? this.$.children().not('.title, .total').map(function() { return parseInt($(this).text()); }).get().reduce((s,v) => (s + v)) : 0);
     }
 }
 
@@ -99,7 +100,7 @@ class CoinSupply extends Supply {
     }
 
     calcTotal() {
-        return this.$.children().not('.title, .total').map(function() { return parseInt($(this).text()); }).get().reduce((s,v) => (s + v));
+        return (this.$.children().not('.title, .total').length ? this.$.children().not('.title, .total').map(function() { return parseInt($(this).text()); }).get().reduce((s,v) => (s + v)) : 0);
     }
 }
 
@@ -113,6 +114,7 @@ class WorkerSupply extends Supply {
     }
 
     processDrop($item, $start) {
-        $item.data('object').player(this.$.parent().hasClass('player') ? this.$.parent().attr('id') : undefined);
+        $item.data('obj').player = (this.$.parent().hasClass('player') ? this.$.parent().data('obj').player : undefined);
+        return true;
     }
 }

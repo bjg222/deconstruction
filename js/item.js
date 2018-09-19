@@ -29,7 +29,7 @@ class Item extends WithType(WithValue(JQDiv)) {
         this.$.addClass('dragging');
         this.$.parent().addClass('dragging-from');
         $('body').addClass('dragging-' + this.type);
-        $('.supply').each(function() { $(this).data('object').counter = 0; });
+        $('.supply').each(function() { $(this).data('obj').counter = 0; });
     }
 
     onDragEnd(ev) {
@@ -37,7 +37,7 @@ class Item extends WithType(WithValue(JQDiv)) {
         $('.dragging-from').removeClass('dragging-from');
         $('.dragging-over').removeClass('dragging-over');
         $('body').removeClass('dragging-' + this.type);
-        $('.supply').each(function() { $(this).data('object').counter = 0; });
+        $('.supply').each(function() { $(this).data('obj').counter = 0; });
     }
 
     onDrag(ev) {
@@ -87,6 +87,7 @@ class Tile extends Item {
         this._.obj.append(util.makeTextDiv('bolts', undefined, this.bolts));
         this._.obj.append(util.makeTextDiv('circuits', undefined, this.circuits));
         this._.obj.append(util.makeTextDiv('category', undefined, this.category));
+        this._.obj.on('click', ev => this.flip());
         return this._.obj;
     }
 }

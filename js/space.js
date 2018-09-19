@@ -1,4 +1,4 @@
-class Space extends WithType(WithPlayer(WithValueInDiv(JQDiv))) {
+class Space extends WithType(WithPlayer(WithValueInDiv(WithCounter(JQDiv)))) {
     constructor(type, value, player, extraClasses) {
         super(type, ['space', 'droppable', extraClasses]);
         this.value = value;
@@ -38,11 +38,15 @@ class Space extends WithType(WithPlayer(WithValueInDiv(JQDiv))) {
     onDrop(ev) {
         ev.preventDefault();
         let $item = $('.dragging');
-        let $start = $('dragging-from')
+        let $start = $('.dragging-from')
         if (this.$.hasClass('dragging-from') || !$item.hasClass(this.type) || this.$.find('.' + this.type).length > 0 || !this.processDrop($item, $start))
             return;
         this.$.children().hide();
-        this.appendItem($item.css('grid-area', ''));
+        this.appendItem($item.css('grid-area', '').data('obj'));
+        if ($start.hasClass('supply'))
+            $start.data('obj').refreshTotal();
+        if ($start.hasClass('space'))
+            $start.children().show();
     }
 
     processDrop($item, $start) {
