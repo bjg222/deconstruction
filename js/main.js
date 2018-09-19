@@ -9,24 +9,38 @@ $(document).ready(function() {
         playerActions.forEach(a => p.addAction(new Action(a[0], a[1]), a[2]));
         playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach((a,i) => p.addTileSpace(new TileSpace(i+1, players), a));
         addSupplyItems(supplyStartsWithPerPlayer, table.community.supplies);
-        addSupplyItems(playerStartsWith, p);
+        addSupplyItems(playerStartsWith, p, players);
         table.players.addPlayer(p);
     });
     $('#show-rules').on('click', ev => $('#rules').css('display', 'flex'));
     $('#hide-rules').on('click', ev => $('#rules').hide());
 })
 
-function addSupplyItems(counts, board) {
+function addSupplyItems(counts, board, player) {
     for (let item in counts) {
-        let num = counts[item];
+        let qty = counts[item];
         let items = [];
-        let makeItem = (val) => items.push(new ({worker: Worker, material: Material, widget: Widget, coin: Coin, tile: Tile}[item])(val));
-        let makeItems = (qty, val) => util.range(qty).forEach(() => makeItem(val));
-        if (num instanceof Object) {
-            for (let val in num)
-                makeItems(num[val], num);
+        let makeItems = (qty, val) => util.range(qty).forEach(() => items.push(makeItem(item, val, player)));
+        if (qty instanceof Object) {
+            for (let val in qty)
+                makeItems(qty[val], val);
         } else
-            makeItems(num, 1);
-        board[item].addItem(util.shuffle(items));
+            makeItems(qty, 1);
+            util.shuffle(items).forEach((it) => board[item+'s'].appendItem(it));
+    }
+}
+
+function makeItem(type, value, player) {
+    switch (type) {
+        case 'material':
+            return new Material(value);
+        case 'widget':
+            return new Widget(value);
+        case 'coin':
+            return new Coin(value);
+        case 'worker':
+            return new Worker(player);
+        case 'tile':
+            return new Tile('ABC'[util.randInt(2)], util.randInt(1,4), util.randInt(1,4));
     }
 }
