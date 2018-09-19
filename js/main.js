@@ -8,9 +8,9 @@ $(document).ready(function() {
         let p = new PlayerBoard(++players);
         playerActions.forEach(a => p.addAction(new Action(a[0], a[1]), a[2]));
         playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach((a,i) => p.addTileSpace(new TileSpace(i+1, players), a));
+        table.players.addPlayer(p);
         addSupplyItems(supplyStartsWithPerPlayer, table.community.supplies);
         addSupplyItems(playerStartsWith, p, players);
-        table.players.addPlayer(p);
     });
     $('#show-rules').on('click', ev => $('#rules').css('display', 'flex'));
     $('#hide-rules').on('click', ev => $('#rules').hide());
