@@ -273,14 +273,13 @@ html {
   place-items: center;
   font-size: 1.2rem;
 }
-.item.tile .bolts:after, .item.tile .circuits:after {
+.item.tile .bolts:not(:empty):after {
+  content: 'B';
   margin-left: 0.2rem;
 }
-.item.tile .bolts:after {
-  content: 'B';
-}
-.item.tile .circuits:after {
+.item.tile .circuits:not(:empty):after {
   content: 'C';
+  margin-left: 0.2rem;
 }
 .item.tile .category {
   font-size: 2.5rem;

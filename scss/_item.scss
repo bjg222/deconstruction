@@ -15,14 +15,13 @@
         place-content: center;
         place-items: center;
         font-size: 1.2rem;
-        .bolts:after, .circuits:after {
+        .bolts:not(:empty):after {
+            content: 'B';
             margin-left: 0.2rem;
         }
-        .bolts:after {
-            content: 'B';
-        }
-        .circuits:after {
+        .circuits:not(:empty):after {
             content: 'C';
+            margin-left: 0.2rem;
         }
         .category {
             font-size: 2.5rem;
