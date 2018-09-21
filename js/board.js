@@ -79,7 +79,7 @@ class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
         if (this._.obj)
             return this._.obj;
         super.$;
-        this._.obj.append($('<button>').addClass('remove').text('-').on('click', ev => this.$.detach()));
+        this._.obj.append($('<button>').addClass('remove').text('-'));
         this.addSupply(this.materials);
         this.addSupply(this.widgets);
         this.addSupply(this.coins);

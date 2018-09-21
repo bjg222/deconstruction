@@ -14,14 +14,28 @@
         flex-direction: column;
         place-content: center;
         place-items: center;
-        font-size: 1.2rem;
-        .bolts:not(:empty):after {
+        font-size: 1.0rem;
+        .bolts::after {
             content: 'B';
             margin-left: 0.2rem;
         }
-        .circuits:not(:empty):after {
+        .circuits::after {
             content: 'C';
             margin-left: 0.2rem;
+        }
+        .production,
+        .production::before {
+            margin-top: 0.2rem;
+            font-size: 0.9rem;
+        }
+        .production::before {
+            content: '+';
+        }
+        .bolts:empty::after,
+        .circuits:empty::after,
+        .production:empty::before {
+            content: '-';
+            color: transparent;
         }
         .category {
             font-size: 2.5rem;
@@ -29,6 +43,7 @@
         }
         &.face-down .bolts,
         &.face-down .circuits,
+        &.face-down .production,
         &.face-up .category {
             display: none;
         }

@@ -1,26 +1,4 @@
-
-const playerStartsWith = {
-    worker: 3,
-    material: {1:10, 5:4, 10:2},
-    coin: {1: 5, 5: 2, 10: 2, 25: 1},
-    widget: 0
-};
-
-const supplyStartsWith = {
-    tile: 15,
-    worker: 0,
-    material: {1:10, 5:3, 10:2},
-    coin: {1: 10, 5: 5, 10: 5, 25: 4},
-    widget: 50
-};
-
-const supplyStartsWithPerPlayer = {
-    tile: 10,
-    worker: 3,
-    material: {1:5, 5:2, 10:1},
-    coin: {1: 10, 5: 5, 10: 5, 25: 4},
-    widget: {1:10, 5:2, 10:1}
-};
+const maxPlayers = 4;
 
 let space = (t, r, c) => ({category: t, grid: {row: r, col: c}});
 
@@ -94,3 +72,25 @@ const tileBag = [
     tiles(tile('C', 2, 0, 1),  4),
     tiles(tile('C', 2, 1, 1),  2)
 ].flat();
+
+const playerStartsWith = {
+    worker: 3,
+    material: {1:10, 5:4, 10:2},
+    coin: {1: 5, 5: 2, 10: 2, 25: 1},
+    widget: 0
+};
+
+const supplyStartsWith = {
+    tile: tileBag.length,
+    worker: 0,
+    material: {1:10, 5:3, 10:2},
+    coin: {1: 10, 5: 5, 10: 5, 25: 4},
+    widget: 50
+};
+
+const supplyStartsWithPerPlayer = {
+    worker: 3,
+    material: {1:5, 5:2, 10:1},
+    coin: {1: 10, 5: 5, 10: 5, 25: 4},
+    widget: {1:10, 5:2, 10:1}
+};
