@@ -14,7 +14,7 @@ const playerTileSpaces = [
     [space('A', 2,3), space('A', 2,4), space('B', 3,4), space('B', 4,4), space('A', 2,5), space('C', 4,5), space('B', 2,6), space('B', 2,7), space('B', 3,7), space('C', 4,7), space('C', 2,8), space('C', 4,8)] ,
     [space('A', 4,2), space('A', 4,3), space('A', 3,3), space('B', 3,4), space('B', 2,4), space('B', 2,5), space('B', 2,6), space('B', 3,6), space('C', 4,6), space('C', 3,7), space('C', 3,8), space('C', 3,9)] ,
     [space('A', 3,2), space('A', 3,3), space('A', 2,3), space('B', 4,3), space('B', 2,4), space('B', 2,5), space('B', 3,5), space('C', 4,5), space('B', 2,6), space('C', 2,7), space('C', 2,8), space('C', 3,8)] ,
-    [space('A', 3,2), space('A', 3,3), space('A', 3,4), space('B', 2,4), space('B', 4,4), space('B', 3,5), space('B', 3,6), space('B', 2,6), space('C', 2,7), space('C', 2,8), space('C', 3,8), space('C', 3,9)] 
+    [space('A', 3,2), space('A', 3,3), space('A', 3,4), space('B', 2,4), space('B', 4,4), space('B', 3,5), space('B', 3,6), space('B', 2,6), space('C', 2,7), space('C', 2,8), space('C', 3,8), space('C', 3,9)]
 ];
 
 let action = (t, w, r, c) => ({title: t, workers: w, grid: {row: r, col: c}});
@@ -28,18 +28,20 @@ const playerActions = [
 
 const communityActions = [
     //      title          workers  grid
-    action('+1 Worker',       4,    1, 1),
+    action('+2 Workers',      1,    1, 1),
     action('-1 B',            1,    1, 2),
     action('-1 C',            1,    1, 3),
-    action('Sell Tile',       3,    1, 4),
+    action('Hire Worker',     3,    1, 4),
     action('+5 Coins',        1,    1, 5),
-    action('Train Worker',    3,    1, 6),
+    action('Train Worker',    2,    1, 6),
+    action('Repair Tile',     2,    1, 7),
     action('-1 B',            2,    2, 1),
     action('-1 C',            2,    2, 2),
     action('+10 Materials',   1,    2, 3),
     action('-10 Widgets',     1,    2, 4),
     action('-2 B',            3,    2, 5),
-    action('-2 C',            3,    2, 6)
+    action('-2 C',            3,    2, 6),
+    action('Scrap Tile',      2,    2, 7),
 ];
 
 let tile = (t, b, c, p) => ({category: t, bolts: b, circuits: c, production: p});

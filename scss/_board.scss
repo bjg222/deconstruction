@@ -47,7 +47,7 @@ $player-col-width: $player-row-height;
         &.player-8 { background: ivory; }
     }
     &.action {
-        grid: repeat(2, $action-row-height) / repeat(6, $action-col-width);
+        grid: repeat(2, $action-row-height) / repeat(7, $action-col-width);
         background: lightgray;
     }
     &.supply {

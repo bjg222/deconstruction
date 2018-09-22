@@ -93,7 +93,7 @@ class Tile extends Item {
         this._.obj.append(util.makeTextDiv('circuits', undefined, this.circuits));
         this._.obj.append(util.makeTextDiv('category', undefined, this.category));
         this._.obj.append(util.makeTextDiv('production', undefined, this.production));
-        this._.obj.on('click', ev => this.flip());
+        this._.obj.on('dblclick', ev => this.flip());
         return this._.obj;
     }
 }
@@ -128,7 +128,34 @@ class Worker extends WithPlayer(Item) {
         this.player = player;
     }
 
+    train() {
+        this._.classes.add('trained');
+        this.refreshClasses();
+        return this;
+    }
+
     assignGridArea() {
         throw 'Not implemented';
+    }
+
+    set player(v) {
+        let p = this.player
+        super.player = v;
+        if (this.player !== p) {
+            this._.classes.rem('trained');
+            this.refreshClasses();
+        }
+    }
+
+    get player() {
+        return super.player;
+    }
+
+    get $() {
+        if (this._.obj)
+            return this._.obj;
+        super.$
+        this._.obj.on('dblclick', ev => this.train());
+        return this._.obj;
     }
 }

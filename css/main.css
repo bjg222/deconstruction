@@ -117,7 +117,7 @@ html {
   background: ivory;
 }
 .board.action {
-  grid: repeat(2, 6rem)/repeat(6, 6rem);
+  grid: repeat(2, 6rem)/repeat(7, 6rem);
   background: lightgray;
 }
 .board.supply {
@@ -374,6 +374,20 @@ html {
   background: white;
   border: 0.1rem black solid;
 }
+.item.worker.trained {
+  position: relative;
+}
+.item.worker.trained::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 0.2rem gray solid;
+  border-radius: 50%;
+  opacity: 0.7;
+}
 .item.worker.player-1 {
   background: navy;
 }
@@ -445,12 +459,12 @@ html {
   pointer-events: auto;
   user-select: none;
   cursor: grab;
-  z-index: 100;
 }
 
 .dragging {
   opacity: 0.65;
   cursor: grabbing;
+  z-index: 100;
 }
 
 #rules {
