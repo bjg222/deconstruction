@@ -10,7 +10,7 @@ $(document).ready(function() {
             return;
         let p = new PlayerBoard(++ nextPlayer);
         playerActions.forEach(a => p.addAction(new Action(a.title, a.workers), [a.grid.row, a.grid.col]));
-        playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach((s,i) => p.addTileSpace(new TileSpace(i+1, players), [s.grid.row, s.grid.col]));
+        playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach(s => p.addTileSpace(new TileSpace(s.category, players), [s.grid.row, s.grid.col]));
         p.$.find('button').on('click', ev => {
             p.$.detach();
             players --;

@@ -1,4 +1,4 @@
-class Space extends WithType(WithPlayer(WithValueInDiv(WithCounter(JQDiv)))) {
+class Space extends WithType(WithPlayer(WithTextInDiv(WithCounter(JQDiv)))) {
     constructor(type, value, player, extraClasses) {
         super(type, ['space', 'droppable', extraClasses]);
         this.value = value;
@@ -112,7 +112,7 @@ class WorkerSpace extends Space {
 }
 
 class TileSpace extends Space {
-    constructor(position, player) {
-        super('tile', position, player);
+    constructor(category, player) {
+        super('tile', category, player);
     }
 }

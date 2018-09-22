@@ -47,7 +47,7 @@ class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
         return this.children.filter(c => c instanceof Action);
     }
 
-    get tiles() {
+    get tilespaces() {
         return this.children.filter(c => c instanceof TileSpace);
     }
 
@@ -69,6 +69,12 @@ class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
         return this._.coins
     }
 
+    get tiles() {
+        if (!this._.tiles)
+            this._.tiles = new TileSupply(this.player);
+        return this._.tiles
+    }
+
     get workers() {
         if (!this._.workers)
             this._.workers = new WorkerSupply(this.player);
@@ -83,6 +89,7 @@ class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
         this.addSupply(this.materials);
         this.addSupply(this.widgets);
         this.addSupply(this.coins);
+        this.addSupply(this.tiles);
         this.addSupply(this.workers);
         return this._.obj;
     }
