@@ -11,8 +11,8 @@
     justify-content: center;
     align-items: center;
     align-content: center;
-    .community,
-    .players {
+    > .community,
+    > .players {
         max-width: 100%;
         min-height: 8rem;
         display: flex;

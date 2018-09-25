@@ -29,7 +29,7 @@ class Item extends WithType(WithValue(JQDiv)) {
         this.$.addClass('dragging');
         this.$.parent().addClass('dragging-from');
         $('body').addClass('dragging-' + this.type);
-        $('.supply').each(function() { $(this).data('obj').counter = 0; });
+        $('.supply, .space').each(function() { $(this).data('obj').counter = 0; });
     }
 
     onDragEnd(ev) {
@@ -37,7 +37,7 @@ class Item extends WithType(WithValue(JQDiv)) {
         $('.dragging-from').removeClass('dragging-from');
         $('.dragging-over').removeClass('dragging-over');
         $('body').removeClass('dragging-' + this.type);
-        $('.supply').each(function() { $(this).data('obj').counter = 0; });
+        $('.supply, .space').each(function() { $(this).data('obj').counter = 0; });
     }
 
     onDrag(ev) {
@@ -49,7 +49,7 @@ class Item extends WithType(WithValue(JQDiv)) {
 class Tile extends Item {
     constructor(category, bolts, circuits, production) {
         category = category[0].toLowerCase();
-        super('tile', undefined, ['category-' + category, 'face-down']);
+        super('tile', undefined, ['category-' + category, 'face-down', 'clickable']);
         this._.category = category;
         this._.bolts = bolts;
         this._.circuits = circuits;
@@ -124,7 +124,7 @@ class Coin extends Item {
 
 class Worker extends WithPlayer(Item) {
     constructor(player) {
-        super('worker');
+        super('worker', undefined, 'clickable');
         this.player = player;
     }
 

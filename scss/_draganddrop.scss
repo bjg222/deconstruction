@@ -29,9 +29,17 @@
     }
 }
 
-[draggable] {
+.draggable,
+.clickable {
     pointer-events: auto;
     user-select: none;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.draggable {
     cursor: grab;
 }
 

@@ -5,7 +5,7 @@
 }
 
 html {
-  font-size: 10px;
+  font-size: 13px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -23,8 +23,8 @@ html {
   align-items: center;
   align-content: center;
 }
-.table .community,
-.table .players {
+.table > .community,
+.table > .players {
   max-width: 100%;
   min-height: 8rem;
   display: flex;
@@ -35,8 +35,8 @@ html {
   overflow: auto hidden;
   padding: 0.3rem 0;
 }
-.table .community div,
-.table .players div {
+.table > .community div,
+.table > .players div {
   flex: 0 0 auto;
 }
 .table hr {
@@ -117,7 +117,9 @@ html {
   background: ivory;
 }
 .board.action {
-  grid: repeat(2, 6rem)/repeat(7, 6rem);
+  grid-template-rows: repeat(2, 6rem);
+  grid-auto-columns: 6rem;
+  grid-auto-flow: column;
   background: lightgray;
 }
 .board.supply {
@@ -225,6 +227,9 @@ html {
   grid-area: 1 / 3 / 2 / 7;
 }
 
+.action {
+  position: relative;
+}
 .action .placement {
   width: 100%;
   height: 75%;
@@ -254,6 +259,20 @@ html {
   display: flex;
   place-content: center;
   place-items: center;
+}
+.action .players {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: lightgray;
+  font-size: 0.65rem;
+  padding: 0.25rem;
+}
+.action.face-down .front, .action.face-up .back, .action.face-up .players {
+  display: none;
+}
+.action.face-down {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .space.tile {
@@ -455,9 +474,17 @@ html {
   outline-style: dotted;
 }
 
-[draggable] {
+.draggable,
+.clickable {
   pointer-events: auto;
   user-select: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.draggable {
   cursor: grab;
 }
 

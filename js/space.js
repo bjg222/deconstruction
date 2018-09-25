@@ -55,11 +55,21 @@ class Space extends WithType(WithPlayer(WithTextInDiv(WithCounter(JQDiv)))) {
 }
 
 class Action extends WithPlayer(JQDiv) {
-    constructor(title, workers, player, extraClasses) {
-        super(['action', extraClasses]);
+    constructor(title, workers, players, player, extraClasses) {
+        super(['action', 'face-down', 'clickable', extraClasses]);
         this._.title = title;
         this._.workers = workers;
         this.player  = player;
+        this._.face = 'down';
+        this._.players = players;
+    }
+
+    flip() {
+        this._.classes.rem('face-' + this._.face);
+        this._.face = (this._.face === 'down' ? 'up' : 'down');
+        this._.classes.add('face-' + this._.face);
+        this.refreshClasses();
+        return this;
     }
 
     get title() {
@@ -70,20 +80,29 @@ class Action extends WithPlayer(JQDiv) {
         return this._.workers;
     }
 
+    get players() {
+        return this._.players;
+    }
+
     get $() {
         if (this._.obj)
             return this._.obj;
         super.$;
-        this._.obj.append((new ActionWorkers(this.workers, this.player)).$);
-        this._.obj.append((new ActionTitle(this.title)).$);
+        this._.obj.append((new ActionWorkers(1, this.player, 'back')).$);
+        this._.obj.append((new ActionTitle('Set Up', 'back')).$);
+        this._.obj.append((new ActionWorkers(this.workers, this.player, 'front')).$);
+        this._.obj.append((new ActionTitle(this.title, 'front')).$);
+        if (this._.players)
+            this._.obj.append(util.makeTextDiv('players', undefined, this._.players));
+        this._.obj.on('dblclick', ev => this.flip());
         return this._.obj;
     }
 
 }
 
 class ActionWorkers extends JQDiv {
-    constructor(workers, player) {
-        super('placement');
+    constructor(workers, player, face) {
+        super(['placement', face]);
         this._.workers = workers;
         this._.player = player;
     }
@@ -99,8 +118,8 @@ class ActionWorkers extends JQDiv {
 }
 
 class ActionTitle extends WithText(JQDiv) {
-    constructor(title) {
-        super('title');
+    constructor(title, face) {
+        super(['title', face]);
         this.value = title;
     }
 }

@@ -3,13 +3,15 @@ $(document).ready(function() {
     let players = 0;
     let nextPlayer = 0;
     table.prependTo('body');
-    communityActions.forEach(a => table.community.actions.addAction(new Action(a.title, a.workers), [a.grid.row, a.grid.col]));
+    actionList.basic.forEach(a => table.community.actions.addAction(new Action(a.title, a.workers).flip()));
+    actionList.additional.forEach((a, i) => a.forEach(b => table.community.actions.addAction(new Action(b.title, b.workers, i+1))));
     addSupplyItems(supplyStartsWith, table.community.supplies);
     $('#add-player').on('click', ev => {
         if (players == maxPlayers)
             return;
         let p = new PlayerBoard(++ nextPlayer);
-        playerActions.forEach(a => p.addAction(new Action(a.title, a.workers), [a.grid.row, a.grid.col]));
+        let c = 8;
+        actionList.player.forEach(a => p.addAction(new Action(a.title, a.workers).flip(), [1, c++]));
         playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach(s => p.addTileSpace(new TileSpace(s.category, players), [s.grid.row, s.grid.col]));
         p.$.find('button').on('click', ev => {
             p.$.detach();
@@ -57,3 +59,30 @@ function makeItem(type, value, player) {
             return new Tile(t.category, t.bolts, t.circuits, t.production);
     }
 }
+
+/*
+TODO: Notes from first "playthrough" (2 players, both played by me) :
+- Money is all off, there's no good ways to get more money during the game
+-- Give tiles individual prices, make them sell for more
+-- Increase the amount of money from the action space +5 Coins
+-- Perhaps have some other action that also provides money
+-- Make it cheaper to dispose of widgets at the game end ($3 seems like it's too high)
+- Action distribution between basic and advanced needs some tweaking
+-- Early on, there were tons of actions, plenty of places to go
+-- Got more crowded later, but in a way that seemed limiting
+-- Maybe fewer basic actions, but more actions requiring set up
+- Should selling tiles be an action?
+-- Original idea was that it was an action, and took two turns.  That didn't seem right
+-- If it is going to be an action, it should be a one turn action, and should allow selling any/all tiles, not just one
+-- I kinda like it not being an action, though.  The other supplies can be bought/sold during the day, why not removed tiles?
+-- I think the idea of it being an action was before I came up with the idea that once removed, they go in your supply, so I think it's ok to do away with it
+- Material amounts seemed about right
+- Produced widgets seemed about right
+- Game does feel like it is a bit on the simplistic side
+-- Look at other worker games and see what's interesting.  Don't want too much (Tzolkein is fun, but has way too much going on).
+-- Maybe adding some randomness, in the way of event cards, would help?
+- Definitely needs some indicators!
+-- Turn counter
+-- First player marker
+-- Production rate
+*/
