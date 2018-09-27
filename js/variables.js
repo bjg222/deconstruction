@@ -75,12 +75,27 @@ TODO: Some further action ideas (if I add cards, some of these might work there,
 -- hiring somebody else's employee
 -- inciting a strike at their factory
 -- corporate espionage
+-- place on somebody else's private action
 - disassemble machine (ie, A -> 2 B or B -> 2 C)
 - Use an action in secret
 - night shift (ie, get a second chance at actions)
 - draw cards (if cards are added)
 - R&D to reduce material usage or production value
 - temporary shutdown - reduce production for a day
+- trained workers ability alternatives
+-- can use a blocked action
+-- can kick out an untrained worker to use a space, returning that worker to its owner
+-- double all item actions
+-- do multi day actions faster
+-- >1 kind of training, with different abilities
+-- advanced training levels that add abilities
+- actions that require trained workers
+- actions that require multiple workers
+- taxes - everybody has to pay extra or receive for items/workers
+- protection - like taxes, but payed to one player
+- violations/OSHA - people with messy factories/a lot of items/workers have to pay fines
+- bribes of some kind - reduce taxes/costs
+- some multi day actions have a min time & max time, you can choose to take longer to guarantee you'll get it next turn
 */
 
 const playerActions = actionList.player;
