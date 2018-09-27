@@ -262,13 +262,13 @@ html {
 }
 .action .players {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
-  color: lightgray;
+  color: darkgray;
   font-size: 0.65rem;
   padding: 0.25rem;
 }
-.action.face-down .front, .action.face-up .back, .action.face-up .players {
+.action.face-down .front, .action.face-up .back, .action.face-down .players {
   display: none;
 }
 .action.face-down {
@@ -290,40 +290,62 @@ html {
   background: white;
   color: black;
   border: darkslategray 0.1rem solid;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template: '    .         .    ' 1fr '  bolts     bolts  ' auto 'circuits  circuits ' auto '    .         .    ' 2fr ' price   production' auto '    .         .    ' 1fr / 1fr 1fr;
   place-content: center;
   place-items: center;
-  font-size: 1.0rem;
+}
+.item.tile .bolts,
+.item.tile .bolts::after,
+.item.tile .circuits,
+.item.tile .circuits::after {
+  font-size: 0.9rem;
+}
+.item.tile .bolts {
+  grid-area: bolts;
 }
 .item.tile .bolts::after {
   content: 'B';
   margin-left: 0.2rem;
 }
+.item.tile .circuits {
+  grid-area: circuits;
+}
 .item.tile .circuits::after {
   content: 'C';
   margin-left: 0.2rem;
 }
+.item.tile .price,
+.item.tile .price::before,
 .item.tile .production,
 .item.tile .production::before {
-  margin-top: 0.2rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+}
+.item.tile .price {
+  grid-area: price;
+}
+.item.tile .price::before {
+  content: '$';
+}
+.item.tile .production {
+  grid-area: production;
 }
 .item.tile .production::before {
   content: '+';
 }
 .item.tile .bolts:empty::after,
 .item.tile .circuits:empty::after,
+.item.tile .price:empty::before,
 .item.tile .production:empty::before {
-  content: '-';
-  color: transparent;
+  content: '';
 }
 .item.tile .category {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   text-transform: capitalize;
+  grid-area: 1 / 1 / -3 / -1;
 }
 .item.tile.face-down .bolts, .item.tile.face-down .circuits, .item.tile.face-down .production, .item.tile.face-up .category {
-  display: none;
+  visibility: hidden;
 }
 .item.widget,
 .item.material {

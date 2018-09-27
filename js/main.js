@@ -4,25 +4,27 @@ $(document).ready(function() {
     let nextPlayer = 0;
     table.prependTo('body');
     actionList.basic.forEach(a => table.community.actions.addAction(new Action(a.title, a.workers).flip()));
-    actionList.additional.forEach((a, i) => a.forEach(b => table.community.actions.addAction(new Action(b.title, b.workers, i+1))));
     addSupplyItems(supplyStartsWith, table.community.supplies);
     $('#add-player').on('click', ev => {
         if (players == maxPlayers)
             return;
         let p = new PlayerBoard(++ nextPlayer);
+        table.players.addPlayer(p);
         let c = 8;
         actionList.player.forEach(a => p.addAction(new Action(a.title, a.workers).flip(), [1, c++]));
         playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach(s => p.addTileSpace(new TileSpace(s.category, players), [s.grid.row, s.grid.col]));
+        addSupplyItems(playerStartsWith, p, nextPlayer);
         p.$.find('button').on('click', ev => {
             p.$.detach();
             players --;
             $('.table').data('obj').players.boards.splice($('.table').data('obj').players.boards.indexOf(p));
             $('#add-player').prop('disabled', false);
         })
-        table.players.addPlayer(p);
         players ++;
+        while (table.community.actions.actions.length > actionList.basic.length)
+            table.community.actions.removeAction();
+        util.shuffle(actionList.additional.slice(0,players).map((as, i) => as.map(a => new Action(a.title, a.workers, i+1))).flat()).forEach(a => table.community.actions.addAction(a));
         addSupplyItems(supplyStartsWithPerPlayer, table.community.supplies);
-        addSupplyItems(playerStartsWith, p, players);
         if (players == maxPlayers)
             $('#add-player').prop('disabled', true);
     });
@@ -56,7 +58,7 @@ function makeItem(type, value, player) {
             return new Worker(player);
         case 'tile':
             let t = tileBag.splice(util.randInt(tileBag.length-1),1)[0];
-            return new Tile(t.category, t.bolts, t.circuits, t.production);
+            return new Tile(t.category, t.bolts, t.circuits, t.price, t.production);
     }
 }
 

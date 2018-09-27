@@ -26,38 +26,44 @@ const actionList = {
     player: [
         action('-1 B',          1),
         action('-1 C',          1),
-        action('Sell Tile',     2)
+        action('+5 Coins',      1)
     ].flat(),
     //Actions always present on community board
     basic: [
         action('-1 B',          1),
         action('-1 C',          1),
-        action('-1 B',          2),
-        action('+5 Coins',      1),
         action('Hire Worker',   3),
         action('Train Worker',  2),
         action('Repair Tile',   2),
-        action('-10 Widgets',   1)
+        action('+10 Coins',     1),
     ].flat(),
     //Extra actions added to community board (choice of actions depends on number of players)
     additional: [
         //With 1+ players
         [
+            action('-1 B',          2),
             action('-1 C',          2),
+            action('-10 Widgets',   1),
             action('+10 Materials', 1),
         ].flat(),
         //With 2+ players
         [
-            action('+2 Workers',    1),
             action('-2 B',          3),
-            action('-2 C',          3)
+            action('-2 C',          3),
         ].flat(),
         //With 3+ players
         [
-            action('Scrap Tile',    3)
+            action('+2 Workers',    1),
+            action('Scrap Tile',    3),
+            action('-1 B',          1),
+            action('-1 C',          1),
         ].flat(),
         //With 4 players
         [
+            action('-10 Widgets',   2),
+            action('+10 Materials', 2),
+            action('+10 Coins',     2),
+            action('Reduce Tile',   2),
         ].flat()
     ]
 }
@@ -66,40 +72,44 @@ const playerActions = actionList.player;
 const communityActions = actionList.basic;
 const communityAdditionalActions = actionList.additional.flat();
 
-let tile = (t, b, c, p) => ({category: t, bolts: b, circuits: c, production: p});
+let tile = (t, b, c, s, p) => ({category: t, bolts: b, circuits: c, price: s, production: p});
 let tiles = (t, n) => (new Array(n).fill(t));
 
 const tileList = {
     //             cat  B  C  +    #
     //Category A (hard)
     A: [
-        tiles(tile('A', 2, 2, 2),  2),
-        tiles(tile('A', 2, 3, 3),  2),
-        tiles(tile('A', 3, 1, 2),  2),
-        tiles(tile('A', 3, 2, 3),  2),
-        tiles(tile('A', 3, 3, 4),  2),
-        tiles(tile('A', 4, 1, 3),  3),
-        tiles(tile('A', 4, 2, 4),  2)
+        tiles(tile('A', 2, 2, 15, 2),  2),
+        tiles(tile('A', 2, 3, 18, 3),  2),
+        tiles(tile('A', 3, 1, 16, 2),  2),
+        tiles(tile('A', 3, 2, 16, 3),  2),
+        tiles(tile('A', 3, 3, 18, 4),  2),
+        tiles(tile('A', 4, 1, 17, 3),  3),
+        tiles(tile('A', 4, 2, 20, 4),  2)
     ].flat(),
     //Category B (medium)
     B: [
-        tiles(tile('B', 2, 1, 1),  4),
-        tiles(tile('B', 1, 2, 1),  4),
-        tiles(tile('B', 2, 2, 2),  3),
-        tiles(tile('B', 3, 1, 2),  2),
-        tiles(tile('B', 3, 1, 1),  4),
-        tiles(tile('B', 2, 1, 2),  3),
-        tiles(tile('B', 1, 2, 2),  3),
-        tiles(tile('B', 2, 2, 1),  2)
+        tiles(tile('B', 2, 1, 12, 1),  2),
+        tiles(tile('B', 2, 1, 11, 1),  2),
+        tiles(tile('B', 1, 2, 10, 1),  2),
+        tiles(tile('B', 1, 2, 11, 1),  2),
+        tiles(tile('B', 2, 2, 12, 2),  3),
+        tiles(tile('B', 3, 1, 14, 2),  2),
+        tiles(tile('B', 3, 1, 12, 1),  2),
+        tiles(tile('B', 3, 1, 13, 1),  2),
+        tiles(tile('B', 2, 1, 11, 2),  3),
+        tiles(tile('B', 1, 2, 10, 2),  3),
+        tiles(tile('B', 2, 2, 12, 1),  2)
     ].flat(),
     //Category C (easy)
     C: [
-        tiles(tile('C', 1, 0, 0),  3),
-        tiles(tile('C', 1, 0, 1),  3),
-        tiles(tile('C', 1, 1, 0),  2),
-        tiles(tile('C', 1, 1, 1),  6),
-        tiles(tile('C', 2, 0, 1),  4),
-        tiles(tile('C', 2, 1, 1),  2)
+        tiles(tile('C', 1, 0, 3, 0),  3),
+        tiles(tile('C', 1, 0, 4, 1),  3),
+        tiles(tile('C', 1, 1, 6, 0),  2),
+        tiles(tile('C', 1, 1, 7, 1),  3),
+        tiles(tile('C', 1, 1, 8, 1),  3),
+        tiles(tile('C', 2, 0, 7, 1),  4),
+        tiles(tile('C', 2, 1, 9, 1),  2)
     ].flat()
 };
 
@@ -108,7 +118,7 @@ const tileBag = [tileList.A, tileList.B, tileList.C].flat();
 
 const playerStartsWith = {
     worker: 3,
-    material: {1:10, 5:4, 10:2},
+    material: {1: 5, 5: 3, 10: 2},
     coin: {1: 5, 5: 2, 10: 2, 25: 1},
     widget: 0
 };
@@ -116,14 +126,14 @@ const playerStartsWith = {
 const supplyStartsWith = {
     tile: tileBag.length,
     worker: 0,
-    material: {1:10, 5:3, 10:2},
-    coin: {1: 10, 5: 5, 10: 5, 25: 4},
-    widget: {1:10, 5:4, 10:5}
+    material: {1: 5, 5: 2, 10: 2},
+    coin: {1: 10, 5: 4, 10: 3, 25: 2},
+    widget: {1: 5, 5: 2, 10: 2}
 };
 
 const supplyStartsWithPerPlayer = {
-    worker: 3,
-    material: {1:5, 5:2, 10:1},
-    coin: {1: 10, 5: 5, 10: 5, 25: 4},
-    widget: {1:10, 5:2, 10:1}
+    worker: 4,
+    material: {1: 5, 5: 2, 10: 2},
+    coin: {1: 10, 5: 2, 10: 2, 25: 2},
+    widget: {1: 5, 5: 2, 10: 2}
 };

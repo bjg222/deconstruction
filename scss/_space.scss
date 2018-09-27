@@ -33,15 +33,15 @@
     }
     .players {
         position: absolute;
-        left: 0;
+        right: 0;
         top: 0;
-        color: lightgray;
+        color: darkgray;
         font-size: 0.65rem;
         padding: 0.25rem;
     }
     &.face-down .front,
     &.face-up .back,
-    &.face-up .players {
+    &.face-down .players {
         display: none;
     }
     &.face-down {

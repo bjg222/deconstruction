@@ -18,6 +18,18 @@ class Board extends JQDiv {
         this._.children.push(child);
         return this.append(child.$);
     }
+
+    removeChild(pos) {
+        if (typeof pos === 'string')
+            pos = pos.split('/').map(s => s.trim());
+        if (pos instanceof Array)
+            pos = (pos[1]-1) * 2 + (pos[0]-1);
+        if (pos === undefined)
+            this._.children.pop().$.detach();
+        else if (typeof pos === 'number')
+            this._.children.splice(pos, 1)[0].$.detach();
+        return this;
+    }
 }
 
 class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
@@ -104,6 +116,10 @@ class SupplyBoard extends Board {
         return this.addChild(...args);
     }
 
+    removeSupply(...args) {
+        return this.removeChild(...args);
+    }
+
     get supplies() {
         return this.children;
     }
@@ -162,5 +178,9 @@ class ActionBoard extends Board {
 
     addAction(...args) {
         return this.addChild(...args);
+    }
+
+    removeAction(...args) {
+        return this.removeChild(...args);
     }
 }

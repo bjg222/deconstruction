@@ -47,12 +47,13 @@ class Item extends WithType(WithValue(JQDiv)) {
 }
 
 class Tile extends Item {
-    constructor(category, bolts, circuits, production) {
+    constructor(category, bolts, circuits, price, production) {
         category = category[0].toLowerCase();
         super('tile', undefined, ['category-' + category, 'face-down', 'clickable']);
         this._.category = category;
         this._.bolts = bolts;
         this._.circuits = circuits;
+        this._.price = price;
         this._.production = production;
         this._.face = 'down';
     }
@@ -77,6 +78,10 @@ class Tile extends Item {
         return this._.circuits;
     }
 
+    get price() {
+        return this._.price;
+    }
+
     get production() {
         return this._.production;
     }
@@ -92,6 +97,7 @@ class Tile extends Item {
         this._.obj.append(util.makeTextDiv('bolts', undefined, this.bolts));
         this._.obj.append(util.makeTextDiv('circuits', undefined, this.circuits));
         this._.obj.append(util.makeTextDiv('category', undefined, this.category));
+        this._.obj.append(util.makeTextDiv('price', undefined, this.price));
         this._.obj.append(util.makeTextDiv('production', undefined, this.production));
         this._.obj.on('dblclick', ev => this.flip());
         return this._.obj;

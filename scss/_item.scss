@@ -10,42 +10,71 @@
         background: white;
         color: black;
         border: darkslategray 0.1rem solid;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template:
+            '    .         .    ' 1fr
+            '  bolts     bolts  ' auto
+            'circuits  circuits ' auto
+            '    .         .    ' 2fr
+            ' price   production' auto
+            '    .         .    ' 1fr /
+            1fr 1fr;
         place-content: center;
         place-items: center;
-        font-size: 1.0rem;
+        .bolts,
+        .bolts::after,
+        .circuits,
+        .circuits::after {
+            font-size: 0.9rem;
+        }
+        .bolts {
+            grid-area: bolts;
+        }
         .bolts::after {
             content: 'B';
             margin-left: 0.2rem;
+        }
+        .circuits {
+            grid-area: circuits;
         }
         .circuits::after {
             content: 'C';
             margin-left: 0.2rem;
         }
+        .price,
+        .price::before,
         .production,
         .production::before {
-            margin-top: 0.2rem;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+        }
+        .price {
+            grid-area: price;
+        }
+        .price::before {
+            content: '$';
+        }
+        .production {
+            grid-area: production;
         }
         .production::before {
             content: '+';
         }
         .bolts:empty::after,
         .circuits:empty::after,
+        .price:empty::before,
         .production:empty::before {
-            content: '-';
-            color: transparent;
+            content: '';
         }
         .category {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             text-transform: capitalize;
+            grid-area: 1 / 1 / -3 / -1;
         }
         &.face-down .bolts,
         &.face-down .circuits,
         &.face-down .production,
         &.face-up .category {
-            display: none;
+            visibility: hidden;
         }
     }
     &%cube {
