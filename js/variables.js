@@ -67,6 +67,21 @@ const actionList = {
         ].flat()
     ]
 }
+/*
+TODO: Some further action ideas (if I add cards, some of these might work there, too)
+- First player next turn (Open early tomorrow)
+- Don't pay worker(s) (Vacation)
+- actions to attack other people's workers
+-- hiring somebody else's employee
+-- inciting a strike at their factory
+-- corporate espionage
+- disassemble machine (ie, A -> 2 B or B -> 2 C)
+- Use an action in secret
+- night shift (ie, get a second chance at actions)
+- draw cards (if cards are added)
+- R&D to reduce material usage or production value
+- temporary shutdown - reduce production for a day
+*/
 
 const playerActions = actionList.player;
 const communityActions = actionList.basic;
