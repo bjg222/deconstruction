@@ -95,4 +95,5 @@ Other interesting ideas:
 - Cards that affect individuals or the table (akin to some of the attacking actions) (Monkey Wrench Cards!)
 - partner version, where it's 2v2, each player with their own factory, but partners can work together
 - First player each round could be "employee of the month"?
+- Each turn has a different effect (could come from cards, or predefined)
 */
