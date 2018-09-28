@@ -88,4 +88,11 @@ TODO: Notes from first "playthrough" (2 players, both played by me) :
 -- Turn counter
 -- First player marker
 -- Production rate
+
+Other interesting ideas:
+- Coop version, where there's one large factory in the middle that everybody's working together to break down
+-- each player could be a different division with different abilities
+- Cards that affect individuals or the table (akin to some of the attacking actions) (Monkey Wrench Cards!)
+- partner version, where it's 2v2, each player with their own factory, but partners can work together
+- First player each round could be "employee of the month"?
 */
