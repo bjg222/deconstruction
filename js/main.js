@@ -23,7 +23,7 @@ $(document).ready(function() {
         players ++;
         while (table.community.actions.actions.length > actionList.basic.length)
             table.community.actions.removeAction();
-        util.shuffle(actionList.additional.slice(0,players).map((as, i) => as.map(a => new Action(a.title, a.workers, i+1))).flat()).forEach(a => table.community.actions.addAction(a));
+        util.shuffle(actionList.additional.slice(0,players).map((as, i) => as.map(a => new Action(a.title, a.workers, i+1))).flat()).slice(0,players*3).forEach(a => table.community.actions.addAction(a));
         addSupplyItems(supplyStartsWithPerPlayer, table.community.supplies);
         if (players == maxPlayers)
             $('#add-player').prop('disabled', true);

@@ -103,8 +103,6 @@
     &.material { background: orange; }
     &.widget { background: brown; }
     &.coin {
-        // width: 2rem;
-        // height: 2rem;
         border-radius: 50%;
         background: gold;
         font-size: 0.8rem;
@@ -143,14 +141,15 @@
         &.trained {
             position: relative;
             &::before {
-                content: '';
+                content: '+';
+                color: gray;
                 position: absolute;
                 top: 0;
                 left: 0;
                 bottom: 0;
                 right: 0;
-                border: 0.2rem gray solid;
-                border-radius: 50%;
+                //border: 0.2rem gray solid;
+                //border-radius: 50%;
                 opacity: 0.7;
             }
         }
