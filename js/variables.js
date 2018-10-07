@@ -106,7 +106,7 @@ let tile = (t, b, c, s, p) => ({category: t, bolts: b, circuits: c, price: s, pr
 let tiles = (t, n) => (new Array(n).fill(t));
 
 const tileList = {
-    //             cat  B  C  +    #
+    //             cat  B  C   $  +    #
     //Category A (hard)
     A: [
         tiles(tile('A', 2, 2, 15, 2),  2),
@@ -133,13 +133,13 @@ const tileList = {
     ].flat(),
     //Category C (easy)
     C: [
-        tiles(tile('C', 1, 0, 3, 0),  3),
-        tiles(tile('C', 1, 0, 4, 1),  3),
-        tiles(tile('C', 1, 1, 6, 0),  2),
-        tiles(tile('C', 1, 1, 7, 1),  3),
-        tiles(tile('C', 1, 1, 8, 1),  3),
-        tiles(tile('C', 2, 0, 7, 1),  4),
-        tiles(tile('C', 2, 1, 9, 1),  2)
+        tiles(tile('C', 1, 0,  3, 0),  3),
+        tiles(tile('C', 1, 0,  4, 1),  3),
+        tiles(tile('C', 1, 1,  6, 0),  2),
+        tiles(tile('C', 1, 1,  7, 1),  3),
+        tiles(tile('C', 1, 1,  8, 1),  3),
+        tiles(tile('C', 2, 0,  7, 1),  4),
+        tiles(tile('C', 2, 1,  9, 1),  2)
     ].flat()
 };
 
@@ -158,7 +158,8 @@ const supplyStartsWith = {
     worker: 0,
     material: {1: 5, 5: 2, 10: 2},
     coin: {1: 10, 5: 4, 10: 3, 25: 2},
-    widget: {1: 5, 5: 2, 10: 2}
+    widget: {1: 5, 5: 2, 10: 2},
+    firstplayer: 1
 };
 
 const supplyStartsWithPerPlayer = {

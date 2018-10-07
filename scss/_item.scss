@@ -1,5 +1,7 @@
 .widget,
-.material {
+.material,
+.indicator,
+.firstplayer {
     @extend %cube;
 }
 
@@ -102,6 +104,29 @@
     }
     &.material { background: orange; }
     &.widget { background: brown; }
+    &.indicator {
+        width: 1.1rem;
+        height: 1.1rem;
+    }
+    &.firstplayer {
+        width: 3rem;
+        height: 4rem;
+        background: lime;
+        position: relative;
+        &::after {
+            content: '1';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            font-size: 2rem;
+            color: black;
+            display: flex;
+            place-content: center;
+            place-items: center;
+        }
+    }
     &.coin {
         border-radius: 50%;
         background: gold;
@@ -141,25 +166,25 @@
         &.trained {
             position: relative;
             &::before {
-                content: '+';
-                color: gray;
+                content: ' ';
+                white-space: pre;
                 position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                //border: 0.2rem gray solid;
-                //border-radius: 50%;
+                top: -0.01rem;
+                left: -0.01rem;
+                bottom: -0.01rem;
+                right: -0.01rem;
+                border: 0.35rem gray solid;
+                border-radius: 50%;
                 opacity: 0.7;
             }
         }
-        &.player-1 { background: navy; }
-        &.player-2 { background: darkgreen; }
-        &.player-3 { background: maroon; }
-        &.player-4 { background: goldenrod; }
-        &.player-5 { background: orangered; }
-        &.player-6 { background: purple; }
-        &.player-7 { background: brown; }
-        &.player-8 { background: gray; }
     }
+    &.player-1 { background: navy; }
+    &.player-2 { background: darkgreen; }
+    &.player-3 { background: maroon; }
+    &.player-4 { background: goldenrod; }
+    &.player-5 { background: orangered; }
+    &.player-6 { background: purple; }
+    &.player-7 { background: brown; }
+    &.player-8 { background: gray; }
 }

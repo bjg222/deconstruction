@@ -2,7 +2,9 @@
 .dragging-material,
 .dragging-widget,
 .dragging-tile,
-.dragging-worker {
+.dragging-worker,
+.dragging-indicator
+.dragging-firstplayer {
     cursor: grabbing;
     div {
         cursor: grabbing;
@@ -14,11 +16,15 @@
 .dragging-widget .supply.widget,
 .dragging-tile .supply.tile,
 .dragging-worker .supply.worker,
+.dragging-indicator .supply.indicator,
+.dragging-firstplayer .supply.firstplayer,
 .dragging-coin .space.coin,
 .dragging-material .space.material,
 .dragging-widget .space.widget,
 .dragging-tile .space.tile,
-.dragging-worker .space.worker {
+.dragging-worker .space.worker,
+.dragging-indicator .space.indicator,
+.dragging-firstplayer .space.firstplayer, {
     &:not(.dragging-from) {
         outline: 0.3rem deeppink solid;
         outline-offset: -0.2rem;

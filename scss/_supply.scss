@@ -93,6 +93,23 @@ $player-four-cols-width: ceil(10 * (4 * $player-col-width / 1rem - 0.25 * 2 + 0.
             grid-area: 5 / 1 / 6 / 3;
         }
     }
+    &.firstplayer {
+        display: flex;
+        place-content: center;
+        flex-wrap: wrap;
+        position: relative;
+        .title{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        .total {
+            display: none;
+        }
+        .board.supply & {
+            grid-area: 1 / 6 / 3 / 7;
+        }
+    }
     &.coin {
         .board.supply & {
             @extend %supply-two-rows, %supply-one-col;

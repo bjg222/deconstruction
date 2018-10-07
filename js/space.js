@@ -6,6 +6,7 @@ class Space extends WithType(WithPlayer(WithTextInDiv(WithCounter(JQDiv)))) {
     }
 
     appendItem(item) {
+        this.$.children().hide();
         return this.append(item.$);
     }
 
@@ -133,5 +134,58 @@ class WorkerSpace extends Space {
 class TileSpace extends Space {
     constructor(category, player) {
         super('tile', category, player);
+    }
+}
+
+class Counter extends WithType(WithPlayer(JQDiv)) {
+    constructor(type, size, player, extraClasses) {
+        super(type, ['counter', extraClasses]);
+        this._.size = size;
+        this.player  = player;
+    }
+
+    get size() {
+        return this._.size;
+    }
+
+    get $() {
+        if (this._.obj)
+            return this._.obj;
+        super.$;
+        this._.obj.append(util.makeTextDiv('title', undefined, this.type));
+        for (let n of util.range(this.size))
+            this._.obj.append((new IndicatorSpace(n+1, this.player)).$);
+        this._.obj.find('.space').first().data('obj').appendItem(new Indicator(this.player));
+        return this._.obj;
+    }
+}
+
+class TurnCounter extends Counter {
+    constructor() {
+        super('turn', 14, undefined);
+    }
+}
+
+class ConsumptionCounter extends Counter {
+    constructor(player) {
+        super('consumption', 12, player);
+    }
+}
+
+class ProductionCounter extends Counter {
+    constructor(player) {
+        super('production', 27, player);
+    }
+}
+
+class IndicatorSpace extends Space {
+    constructor(number, player) {
+        super('indicator', number, player);
+    }
+}
+
+class FirstPlayerSpace extends Space {
+    constructor(player) {
+        super('firstplayer', undefined, player);
     }
 }

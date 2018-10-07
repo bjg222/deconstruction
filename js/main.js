@@ -12,7 +12,7 @@ $(document).ready(function() {
         table.players.addPlayer(p);
         let c = 8;
         actionList.player.forEach(a => p.addAction(new Action(a.title, a.workers).flip(), [1, c++]));
-        playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach(s => p.addTileSpace(new TileSpace(s.category, players), [s.grid.row, s.grid.col]));
+        playerTileSpaces[util.randInt(playerTileSpaces.length-1)].forEach(s => p.addSpace(new TileSpace(s.category, players), [s.grid.row, s.grid.col]));
         addSupplyItems(playerStartsWith, p, nextPlayer);
         p.$.find('button').on('click', ev => {
             p.$.detach();
@@ -56,6 +56,8 @@ function makeItem(type, value, player) {
             return new Coin(value);
         case 'worker':
             return new Worker(player);
+        case 'firstplayer':
+            return new FirstPlayer(player);
         case 'tile':
             let t = tileBag.splice(util.randInt(tileBag.length-1),1)[0];
             return new Tile(t.category, t.bolts, t.circuits, t.price, t.production);
@@ -68,8 +70,8 @@ TODO: Notes from first "playthrough" (2 players, both played by me) :
 √- Give tiles individual prices, make them sell for more
 √- Increase the amount of money from the action space +5 Coins
 √- Perhaps have some other action that also provides money
--- Make it cheaper to dispose of widgets at the game end ($3 seems like it's too high)
--- Totally forgot the "pay your workforce" part of the game...
+√- Make it cheaper to dispose of widgets at the game end ($3 seems like it's too high)
+√- Totally forgot the "pay your workforce" part of the game...
 - Action distribution between basic and advanced needs some tweaking
 √- Early on, there were tons of actions, plenty of places to go
 √- Got more crowded later, but in a way that seemed limiting
@@ -82,12 +84,12 @@ TODO: Notes from first "playthrough" (2 players, both played by me) :
 - Material amounts seemed about right
 - Produced widgets seemed about right
 - Game does feel like it is a bit on the simplistic side
--- Look at other worker games and see what's interesting.  Don't want too much (Tzolkein is fun, but has way too much going on).
+√- Look at other worker games and see what's interesting.  Don't want too much (Tzolkein is fun, but has way too much going on).
 -- Maybe adding some randomness, in the way of event cards, would help?
 - Definitely needs some indicators!
--- Turn counter
--- First player marker
--- Production rate
+√- Turn counter
+√- First player marker
+√- Production rate
 
 Other interesting ideas:
 - Coop version, where there's one large factory in the middle that everybody's working together to break down

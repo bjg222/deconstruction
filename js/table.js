@@ -35,11 +35,17 @@ class Community extends Section {
         return this._.actions
     }
 
+    get counters() {
+        if (!this._.counters)
+            this._.counters = new CounterBoard();
+        return this._.counters
+    }
+
     get $() {
         if (this._.obj)
             return this._.obj;
         super.$;
-        this.addBoard(this.supplies).addBoard(this.actions);
+        this.addBoard(this.counters).addBoard(this.supplies).addBoard(this.actions);
         return this._.obj;
     }
 }

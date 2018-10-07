@@ -43,11 +43,15 @@ class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
         return this.addChild(...args);
     }
 
-    addTileSpace(...args) {
+    addSpace(...args) {
         return this.addChild(...args);
     }
 
     addSupply(...args) {
+        return this.addChild(...args);
+    }
+
+    addCounter(...args) {
         return this.addChild(...args);
     }
 
@@ -93,6 +97,24 @@ class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
         return this._.workers
     }
 
+    get firstplayers() {
+        if (!this._.firstplayers)
+            this._.firstplayers = new FirstPlayerSpace();
+        return this._.firstplayers
+    }
+
+    get consumption() {
+        if (!this._.consumption)
+            this._.consumption = new ConsumptionCounter(this.player);
+        return this._.consumption
+    }
+
+    get production() {
+        if (!this._.production)
+            this._.production = new ProductionCounter(this.player);
+        return this._.production
+    }
+
     get $() {
         if (this._.obj)
             return this._.obj;
@@ -103,6 +125,9 @@ class PlayerBoard extends WithTextInDiv(WithPlayer(Board)) {
         this.addSupply(this.coins);
         this.addSupply(this.tiles);
         this.addSupply(this.workers);
+        this.addSpace(this.firstplayers);
+        this.addCounter(this.consumption);
+        this.addCounter(this.production);
         return this._.obj;
     }
 }
@@ -154,6 +179,12 @@ class SupplyBoard extends Board {
         return this._.workers
     }
 
+    get firstplayers() {
+        if (!this._.firstplayers)
+            this._.firstplayers = new FirstPlayerSupply();
+        return this._.firstplayers
+    }
+
     get $() {
         if (this._.obj)
             return this._.obj;
@@ -163,6 +194,7 @@ class SupplyBoard extends Board {
         this.addSupply(this.widgets);
         this.addSupply(this.coins);
         this.addSupply(this.workers);
+        this.addSupply(this.firstplayers);
         return this._.obj;
     }
 }
@@ -183,4 +215,37 @@ class ActionBoard extends Board {
     removeAction(...args) {
         return this.removeChild(...args);
     }
+}
+
+class CounterBoard extends Board {
+    constructor() {
+        super('counter')
+    }
+
+    addCounter(...args) {
+        return this.addChild(...args);
+    }
+
+    removeCounter(...args) {
+        return this.removeChild(...args);
+    }
+
+    get counters() {
+        return this.children
+    }
+
+    get turn() {
+        if (!this._.turn)
+            this._.turn = new TurnCounter();
+        return this._.turn
+    }
+
+    get $() {
+        if (this._.obj)
+            return this._.obj;
+        super.$;
+        this.addCounter(this.turn);
+        return this._.obj;
+    }
+
 }

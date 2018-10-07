@@ -1,9 +1,12 @@
+$grid-gap: 0.3rem;
 $supply-row-height: 6rem;
 $supply-col-width: 8rem;
 $action-row-height: $supply-row-height;
 $action-col-width: $action-row-height;
 $player-row-height: $action-row-height;
 $player-col-width: $player-row-height;
+$counter-row-height: $supply-row-height * 2 + $grid-gap;
+$counter-col-width: 10rem;
 .board {
     background: white;
     color: black;
@@ -13,7 +16,7 @@ $player-col-width: $player-row-height;
     display: grid;
     place-content: center;
     place-items: stretch;
-    grid-gap: 0.3rem;
+    grid-gap: $grid-gap;
     box-sizing: content-box;
     &:first-child {
         margin-left: 0;
@@ -53,7 +56,11 @@ $player-col-width: $player-row-height;
         background: lightgray;
     }
     &.supply {
-        grid: repeat(2, $supply-row-height) / repeat(5, $supply-col-width);
+        grid: repeat(2, $supply-row-height) / repeat(6, $supply-col-width);
         background: lightslategray;
+    }
+    &.counter {
+        grid: repeat(1, $counter-row-height) / repeat(1, $counter-col-width);
+        background: slategray;
     }
 }

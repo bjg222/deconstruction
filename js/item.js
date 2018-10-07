@@ -122,6 +122,19 @@ class Widget extends Cube {
     }
 }
 
+class Indicator extends WithPlayer(Cube) {
+    constructor(player) {
+        super('indicator', undefined);
+        this.player = player;
+    }
+}
+
+class FirstPlayer extends Cube {
+    constructor() {
+        super('firstplayer', undefined)
+    }
+}
+
 class Coin extends Item {
     constructor(value) {
         super('coin', value);

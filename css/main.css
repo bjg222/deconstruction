@@ -123,8 +123,12 @@ html {
   background: lightgray;
 }
 .board.supply {
-  grid: repeat(2, 6rem)/repeat(5, 8rem);
+  grid: repeat(2, 6rem)/repeat(6, 8rem);
   background: lightslategray;
+}
+.board.counter {
+  grid: repeat(1, 12.3rem)/repeat(1, 10rem);
+  background: slategray;
 }
 
 .supply:not(.board) {
@@ -152,25 +156,33 @@ html {
   content: '0';
 }
 .board.supply .supply.widget:not(.board),
-.board.supply .supply.material:not(.board) {
+.board.supply .supply.material:not(.board),
+.board.supply .supply.indicator:not(.board),
+.board.supply .supply.firstplayer:not(.board) {
   grid-template-rows: repeat(42, 0.1rem) 1.25rem;
 }
 .board.supply .supply.tile:not(.board), .board.supply .supply.coin:not(.board) {
   grid-template-rows: repeat(105, 0.1rem) 1.25rem;
 }
 .board.supply .supply.widget:not(.board),
-.board.supply .supply.material:not(.board), .board.supply .supply.coin:not(.board) {
+.board.supply .supply.material:not(.board),
+.board.supply .supply.indicator:not(.board),
+.board.supply .supply.firstplayer:not(.board), .board.supply .supply.coin:not(.board) {
   grid-template-columns: repeat(74, 0.1rem);
 }
 .board.supply .supply.tile:not(.board) {
   grid-template-columns: repeat(157, 0.1rem);
 }
 .board.player .supply.tile:not(.board), .board.player .supply.widget:not(.board),
-.board.player .supply.material:not(.board), .board.player .supply.coin:not(.board) {
+.board.player .supply.material:not(.board),
+.board.player .supply.indicator:not(.board),
+.board.player .supply.firstplayer:not(.board), .board.player .supply.coin:not(.board) {
   grid-template-rows: repeat(42, 0.1rem) 1.25rem;
 }
 .board.player .supply.widget:not(.board),
-.board.player .supply.material:not(.board) {
+.board.player .supply.material:not(.board),
+.board.player .supply.indicator:not(.board),
+.board.player .supply.firstplayer:not(.board) {
   grid-template-columns: repeat(118, 0.1rem);
 }
 .board.player .supply.tile:not(.board), .board.player .supply.coin:not(.board) {
@@ -193,6 +205,23 @@ html {
 }
 .board.player .supply:not(.board).material {
   grid-area: 5 / 1 / 6 / 3;
+}
+.supply:not(.board).firstplayer {
+  display: flex;
+  place-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.supply:not(.board).firstplayer .title {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.supply:not(.board).firstplayer .total {
+  display: none;
+}
+.board.supply .supply:not(.board).firstplayer {
+  grid-area: 1 / 6 / 3 / 7;
 }
 .board.supply .supply:not(.board).coin {
   grid-area: 1 / 4 / 3 / 5;
@@ -284,6 +313,52 @@ html {
   text-transform: capitalize;
 }
 
+.counter:not(.board) {
+  display: flex;
+  place-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.counter:not(.board) .title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+.counter:not(.board) .space.indicator {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: 0.35rem;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+.community .counter:not(.board) .space.indicator {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+}
+.board.player .counter:not(.board).consumption {
+  grid-area: 3 / 1 / 5 / 2;
+}
+.board.player .counter:not(.board).production {
+  grid-area: 2 / 10 / 5 / 11;
+}
+
+.space.firstplayer {
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+.board.player .space.firstplayer {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
 .item.tile {
   width: 4rem;
   height: 4rem;
@@ -348,7 +423,9 @@ html {
   visibility: hidden;
 }
 .item.widget,
-.item.material {
+.item.material,
+.item.indicator,
+.item.firstplayer {
   font-size: 0.8rem;
   display: flex;
   color: black;
@@ -357,18 +434,24 @@ html {
   place-items: center;
 }
 .item.value-1.widget,
-.item.value-1.material {
+.item.value-1.material,
+.item.value-1.indicator,
+.item.value-1.firstplayer {
   width: 1rem;
   height: 1rem;
   color: transparent;
 }
 .item.value-5.widget,
-.item.value-5.material {
+.item.value-5.material,
+.item.value-5.indicator,
+.item.value-5.firstplayer {
   width: 1.25rem;
   height: 1.25rem;
 }
 .item.value-10.widget,
-.item.value-10.material {
+.item.value-10.material,
+.item.value-10.indicator,
+.item.value-10.firstplayer {
   width: 1.4rem;
   height: 1.4rem;
 }
@@ -377,6 +460,29 @@ html {
 }
 .item.widget {
   background: brown;
+}
+.item.indicator {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+.item.firstplayer {
+  width: 3rem;
+  height: 4rem;
+  background: lime;
+  position: relative;
+}
+.item.firstplayer::after {
+  content: '1';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  font-size: 2rem;
+  color: black;
+  display: flex;
+  place-content: center;
+  place-items: center;
 }
 .item.coin {
   border-radius: 50%;
@@ -419,38 +525,39 @@ html {
   position: relative;
 }
 .item.worker.trained::before {
-  content: '';
+  content: ' ';
+  white-space: pre;
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  border: 0.2rem gray solid;
+  top: -0.01rem;
+  left: -0.01rem;
+  bottom: -0.01rem;
+  right: -0.01rem;
+  border: 0.35rem gray solid;
   border-radius: 50%;
   opacity: 0.7;
 }
-.item.worker.player-1 {
+.item.player-1 {
   background: navy;
 }
-.item.worker.player-2 {
+.item.player-2 {
   background: darkgreen;
 }
-.item.worker.player-3 {
+.item.player-3 {
   background: maroon;
 }
-.item.worker.player-4 {
+.item.player-4 {
   background: goldenrod;
 }
-.item.worker.player-5 {
+.item.player-5 {
   background: orangered;
 }
-.item.worker.player-6 {
+.item.player-6 {
   background: purple;
 }
-.item.worker.player-7 {
+.item.player-7 {
   background: brown;
 }
-.item.worker.player-8 {
+.item.player-8 {
   background: gray;
 }
 
@@ -458,14 +565,18 @@ html {
 .dragging-material,
 .dragging-widget,
 .dragging-tile,
-.dragging-worker {
+.dragging-worker,
+.dragging-indicator
+.dragging-firstplayer {
   cursor: grabbing;
 }
 .dragging-coin div,
 .dragging-material div,
 .dragging-widget div,
 .dragging-tile div,
-.dragging-worker div {
+.dragging-worker div,
+.dragging-indicator
+.dragging-firstplayer div {
   cursor: grabbing;
 }
 
@@ -474,11 +585,15 @@ html {
 .dragging-widget .supply.widget:not(.dragging-from),
 .dragging-tile .supply.tile:not(.dragging-from),
 .dragging-worker .supply.worker:not(.dragging-from),
+.dragging-indicator .supply.indicator:not(.dragging-from),
+.dragging-firstplayer .supply.firstplayer:not(.dragging-from),
 .dragging-coin .space.coin:not(.dragging-from),
 .dragging-material .space.material:not(.dragging-from),
 .dragging-widget .space.widget:not(.dragging-from),
 .dragging-tile .space.tile:not(.dragging-from),
-.dragging-worker .space.worker:not(.dragging-from) {
+.dragging-worker .space.worker:not(.dragging-from),
+.dragging-indicator .space.indicator:not(.dragging-from),
+.dragging-firstplayer .space.firstplayer:not(.dragging-from) {
   outline: 0.3rem deeppink solid;
   outline-offset: -0.2rem;
   pointer-events: auto;
@@ -488,11 +603,15 @@ html {
 .dragging-widget .supply.widget:not(.dragging-from).dragging-over,
 .dragging-tile .supply.tile:not(.dragging-from).dragging-over,
 .dragging-worker .supply.worker:not(.dragging-from).dragging-over,
+.dragging-indicator .supply.indicator:not(.dragging-from).dragging-over,
+.dragging-firstplayer .supply.firstplayer:not(.dragging-from).dragging-over,
 .dragging-coin .space.coin:not(.dragging-from).dragging-over,
 .dragging-material .space.material:not(.dragging-from).dragging-over,
 .dragging-widget .space.widget:not(.dragging-from).dragging-over,
 .dragging-tile .space.tile:not(.dragging-from).dragging-over,
-.dragging-worker .space.worker:not(.dragging-from).dragging-over {
+.dragging-worker .space.worker:not(.dragging-from).dragging-over,
+.dragging-indicator .space.indicator:not(.dragging-from).dragging-over,
+.dragging-firstplayer .space.firstplayer:not(.dragging-from).dragging-over {
   outline-style: dotted;
 }
 

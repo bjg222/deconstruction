@@ -94,6 +94,24 @@ class WidgetSupply extends CubeSupply {
     }
 }
 
+class FirstPlayerSupply extends CubeSupply {
+    constructor() {
+        super('firstplayer', undefined);
+    }
+
+    appendItem(item) {
+        return this.append(item.$);
+    }
+
+    refreshTotal() {
+        return this;
+    }
+
+    calcTotal() {
+        return 0;
+    }
+}
+
 class CoinSupply extends Supply {
     constructor(player) {
         super('coin', player);
