@@ -1,6 +1,6 @@
 $grid-gap: 0.3rem;
-$supply-row-height: 6rem;
-$supply-col-width: 8rem;
+$supply-row-height: 6.5rem;
+$supply-col-width: 7rem;
 $action-row-height: $supply-row-height;
 $action-col-width: $action-row-height;
 $player-row-height: $action-row-height;
@@ -12,7 +12,7 @@ $counter-col-width: 10rem;
     color: black;
     border: 0.25rem darkgray solid;
     margin: 0.3rem;
-    padding: 3rem;
+    padding: 1.5rem;
     display: grid;
     place-content: center;
     place-items: stretch;

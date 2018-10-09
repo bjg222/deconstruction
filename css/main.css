@@ -62,7 +62,7 @@ html {
   color: black;
   border: 0.25rem darkgray solid;
   margin: 0.3rem;
-  padding: 3rem;
+  padding: 1.5rem;
   display: grid;
   place-content: center;
   place-items: stretch;
@@ -76,7 +76,7 @@ html {
   margin-right: 0;
 }
 .board.player {
-  grid: repeat(5, 6rem)/repeat(10, 6rem);
+  grid: repeat(5, 6.5rem)/repeat(10, 6.5rem);
 }
 .board.player > :first-child {
   grid-area: 1 / 1 / 2 / 2;
@@ -117,17 +117,17 @@ html {
   background: ivory;
 }
 .board.action {
-  grid-template-rows: repeat(2, 6rem);
-  grid-auto-columns: 6rem;
+  grid-template-rows: repeat(2, 6.5rem);
+  grid-auto-columns: 6.5rem;
   grid-auto-flow: column;
   background: lightgray;
 }
 .board.supply {
-  grid: repeat(2, 6rem)/repeat(6, 8rem);
+  grid: repeat(2, 6.5rem)/repeat(6, 7rem);
   background: lightslategray;
 }
 .board.counter {
-  grid: repeat(1, 12.3rem)/repeat(1, 10rem);
+  grid: repeat(1, 13.3rem)/repeat(1, 10rem);
   background: slategray;
 }
 
@@ -159,34 +159,34 @@ html {
 .board.supply .supply.material:not(.board),
 .board.supply .supply.indicator:not(.board),
 .board.supply .supply.firstplayer:not(.board) {
-  grid-template-rows: repeat(42, 0.1rem) 1.25rem;
+  grid-template-rows: repeat(47, 0.1rem) 1.25rem;
 }
 .board.supply .supply.tile:not(.board), .board.supply .supply.coin:not(.board) {
-  grid-template-rows: repeat(105, 0.1rem) 1.25rem;
+  grid-template-rows: repeat(115, 0.1rem) 1.25rem;
 }
 .board.supply .supply.widget:not(.board),
 .board.supply .supply.material:not(.board),
 .board.supply .supply.indicator:not(.board),
 .board.supply .supply.firstplayer:not(.board), .board.supply .supply.coin:not(.board) {
-  grid-template-columns: repeat(74, 0.1rem);
+  grid-template-columns: repeat(64, 0.1rem);
 }
 .board.supply .supply.tile:not(.board) {
-  grid-template-columns: repeat(157, 0.1rem);
+  grid-template-columns: repeat(137, 0.1rem);
 }
 .board.player .supply.tile:not(.board), .board.player .supply.widget:not(.board),
 .board.player .supply.material:not(.board),
 .board.player .supply.indicator:not(.board),
 .board.player .supply.firstplayer:not(.board), .board.player .supply.coin:not(.board) {
-  grid-template-rows: repeat(42, 0.1rem) 1.25rem;
+  grid-template-rows: repeat(47, 0.1rem) 1.25rem;
 }
 .board.player .supply.widget:not(.board),
 .board.player .supply.material:not(.board),
 .board.player .supply.indicator:not(.board),
 .board.player .supply.firstplayer:not(.board) {
-  grid-template-columns: repeat(118, 0.1rem);
+  grid-template-columns: repeat(128, 0.1rem);
 }
 .board.player .supply.tile:not(.board), .board.player .supply.coin:not(.board) {
-  grid-template-columns: repeat(180, 0.1rem);
+  grid-template-columns: repeat(195, 0.1rem);
 }
 .board.supply .supply:not(.board).tile {
   grid-area: 1 / 1 / 3 / 3;
@@ -247,7 +247,7 @@ html {
   left: 0;
 }
 .supply:not(.board).worker .worker {
-  margin: 0.4rem;
+  margin: 0.2rem;
 }
 .board.supply .supply:not(.board).worker {
   grid-area: 1 / 5 / 3 / 6;

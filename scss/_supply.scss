@@ -137,7 +137,7 @@ $player-four-cols-width: ceil(10 * (4 * $player-col-width / 1rem - 0.25 * 2 + 0.
             left: 0;
         }
         .worker {
-            margin: 0.4rem;
+            margin: 0.2rem;
         }
         .board.supply & {
             grid-area: 1 / 5 / 3 / 6;
