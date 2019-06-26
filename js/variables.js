@@ -105,30 +105,34 @@ TODO: Some further action ideas (if I add cards, some of these might work there,
 let card = (t, f, d, a) => ({title: t, flavor: f, desc: d, action: a});
 
 const cardList = [
-    //   title              flavor                                                              desc                                                                   action
-    card('Lucrative Offer', 'Entice a competitor\'s employee with a tempting signing bonus',    'Take a worker from another player & pay $5 to the supply',             action('Poach Worker', 2)),
-    card('Vacation',        'Everybody needs a day off',                                        'All players set one worker aside for this round, pay one less salary'),
-    card('Doctor\'s Appointment',    'Employee health is our priority', 'One of your employees is not moved at the end of this round'),
-    card('Sabotage', 'Not just a Beastie Boys song', 'The player to your right marks one of your machines as damaged'),
-    card('Corporate Espionage', 'Guard your secrets carefully', 'Choose an opponent and duplicate one of their actions this round', action('Send Spy', 1)),
-    //Found Keys - use somebody else's private action
-    //Strike - can't remove equipment this turn
-    //Disassembly - break an A into 2 B or a B into 2 C (action)
-    //Night Shift - place two workers at end of round, resolve actions right away (action)
-    //Awards Banquet - +50% B & C earned this round
-    //Send for Coffee - One multi-day worker skips a space at the end of the round (action)
-    //Taxes - Everybody pay 10% of equipment value (round up)
-    //Protection - All other players pay you $1/worker (action)
-    //Greased Palms - -10 widgets
-    //Fell of a Truck - +10 materials
-    //OSHA inspection - pay $5 fine if materials + widgets > 20
-    //Temporary Shutdown - Produce half of the normal widgets (round up) (action)
-    //World Cup (distraction) - all players decrease B & C earned by 1
-    //Hire Consultant - pay $5, get an extra worker this round (action)
-    //Antiques Collector - All can sell up to 10 widgets or 50% of widgets for double price
-    //Museum Donation - Remove one equipment, don't get money for it (action)
-    //Intern - get an extra worker this round, only usable on B & C actions
+    //    title                      flavor                                          desc                                                                               action
+    card('Lucrative Offer',         'A tempting signing bonus helps',                       'Take a worker from another player & pay $5 to the supply',                 action('Poach Worker', 2)),
+    card('Vacation',                'Everybody needs a day off',                            'All players set one worker aside for this round, pay one less salary'),
+    card('Doctor\'s Appointment',   'Employee health is our priority',                      'One of your employees is not moved at the end of this round'),
+    card('Sabotage',                'Not just a Beastie Boys song',                         'The player to your right marks one of your machines as damaged'),
+    card('Corporate Espionage',     'Guard your secrets carefully',                         'Choose an opponent and duplicate one of their actions this round',         action('Send Spy', 1)),
+    card('Found Keycard',           'You\'re just testing their security',                  'use somebody else\'s private action'),
+    card('Strike',                  'Collective bargaiing at its finest',                   'all players can\'t remove equipment this turn'),
+    card('Disassembly',             'What happens if I take this piece off?',               'break an A into 2 B or a B into 2 C',                                      action('Dissasemble', 1)),
+    card('Night Shift',             'Who needs sleep?',                                     'place two workers at end of round, resolve actions right away',            action('Night Shift', 1)),
+    card('Awards Banquet',          'Motivated employees are productive employees',         '+50% B & C earned this round'),
+    card('Caffeine Boost',          'Coffee solves all problems',                           'One multi-day worker skips a space at the end of the round',               action('Coffee Run', 1)),
+    card('Taxes',                   'One of the few inevitable things',                     'Everybody pay 10% of equipment value (round up)'),
+    card('Protection',              'Just making sure nothing bad happens...',              'All other players pay you $2/worker',                                      action('Rough Up', 2)),
+    card('Greased Palms',           'Help take these off my hands',                         '-10 widgets'),
+    card('Fell of a Truck',         'Plausible deniability',                                '+10 materials'),
+    card('OSHA inspection',         'Messy factories lead to accidents',                    'pay $5 fine if materials + widgets > 20'),
+    card('Temporary Shutdown',      'We can trun this off just for a little while',         'Produce half of the normal widgets (round up)',                            action('Shutdown', 1)),
+    card('World Cup',               'Distractions are everywh -- GOOOOOAAAALLLL',           'all players decrease B & C earned by 1'),
+    card('Hire Consultant',         'Finding synergies for increased efficiency',           'pay $5, place 2 workers during your first placement',                      action('Hire Consultant', 1)),
+    card('Antiques Collector',      'One man\'s trash...',                                  'All can sell widgets up to greater of 10  or 50% for double price'),
+    card('Museum Donation',         'Preserved for posterity',                              'Remove one equipment, don\'t get money for it',                            action('Donate', 1)),
+    card('Intern',                  'Free, but inexperienced, labor',                       'get an extra worker this round, only usable on B & C actions'),
+    card('Accelerated Training',    'We\'ve optimized our courses for better retention',    'train a worker',                                                           action('Train Worker', 1)),
 ];
+
+let cardDrawPile = util.shuffle([...cardList]);
+let cardDiscardPile = [];
 
 const playerActions = actionList.player;
 const communityActions = actionList.basic;

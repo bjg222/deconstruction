@@ -252,12 +252,12 @@ class CounterBoard extends Board {
 
 class Card extends Board {
     constructor(title, flavor, desc, action) {
-        super('card');
+        super(['card', 'clickable']);
         this._.title = title;
         this._.flavor = flavor;
         this._.desc = desc;
         if (action)
-            this._.children.push(action);
+            this._.action = action;
     }
 
     get title() {
@@ -273,7 +273,7 @@ class Card extends Board {
     }
 
     get action() {
-        return this._.children[0];
+        return this._.action;
     }
 
     get $() {
@@ -282,7 +282,8 @@ class Card extends Board {
         super.$;
         this._.obj.append(util.makeTextDiv('title', undefined, this.title));
         this._.obj.append(util.makeTextDiv('flavor', undefined, this.flavor));
-        this._.obj.append(this.action.$);
+        if (this.action)
+            this._.obj.append(this.action.$);
         this._.obj.append(util.makeTextDiv('desc', undefined, this.desc));
         return this._.obj;
     }

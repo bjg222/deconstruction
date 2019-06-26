@@ -41,11 +41,49 @@ class Community extends Section {
         return this._.counters
     }
 
+    get card() {
+        if (!this._.card)
+            this.card = undefined;
+        return this._.card
+    }
+
+    set card(c) {
+        if (!c)
+            this._.card = new Card();
+        else if (c.action)
+            this._.card = new Card(c.title, c.flavor, c.desc, new Action(c.action.title, c.action.workers).flip());
+        else
+            this._.card = new Card(c.title, c.flavor, c.desc);
+        this._.card.$.on('dblclick', ev => this.nextCard());
+    }
+
+    nextCard() {
+        this.removeCard();
+        if (!cardDrawPile.length) {
+            cardDrawPile = util.shuffle([...cardDiscardPile]);
+            cardDiscardPile = [];
+        }
+        let c = cardDrawPile.pop();
+        this.card = c;
+        cardDiscardPile.push(c);
+        this.addCard();
+    }
+
+    removeCard() {
+        if (this._.card)
+            this._.card.$.detach();
+        return this;
+    }
+
+    addCard() {
+        return this.append(this.card.$);
+    }
+
     get $() {
         if (this._.obj)
             return this._.obj;
         super.$;
-        this.addBoard(this.counters).addBoard(this.supplies).addBoard(this.actions);
+        this.addBoard(this.counters).addBoard(this.supplies).addBoard(this.actions).addCard();
         return this._.obj;
     }
 }

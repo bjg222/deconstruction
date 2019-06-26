@@ -5,6 +5,10 @@ const util = (function() {
     }
 
     let shuffle = function(arr) {
+        return doShuffle(doShuffle([...arr]).reverse());
+    }
+
+    function doShuffle(arr) {
         let counter = arr.length;
         while (counter > 0) {
             let index = Math.floor(Math.random() * counter);

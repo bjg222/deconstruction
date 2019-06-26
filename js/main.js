@@ -34,7 +34,7 @@ $(document).ready(function() {
     });
     $('#show-rules').on('click', ev => $('#rules').css('display', 'flex'));
     $('#hide-rules').on('click', ev => $('#rules').hide());
-    table.addSection(new Card('Signing Bonus Offer', 'Poach a competitor\'s employee with a lucrative offer!', 'Take a worker from another player & pay $5 to the supply', new Action('Poach Worker', 2).flip()));
+    // table.addSection(new Card('Signing Bonus Offer', 'Poach a competitor\'s employee with a lucrative offer!', 'Take a worker from another player & pay $5 to the supply', new Action('Poach Worker', 2).flip()));
 })
 
 function addSupplyItems(counts, board, player) {
