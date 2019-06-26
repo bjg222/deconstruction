@@ -28,14 +28,18 @@ const actionList = {
         action('-1 C',          1),
         action('+5 Coins',      1)
     ].flat(),
-    //Actions always present on community board
+    //Actions always present on community board, starting face up
     basic: [
         action('-1 B',          1),
         action('-1 C',          1),
         action('Hire Worker',   3),
+        action('+10 Coins',     1),
+    ].flat(),
+    //Actions always present on community board, starting face down
+    advanced: [
         action('Train Worker',  2),
         action('Repair Tile',   2),
-        action('+10 Coins',     1),
+        action('Card',          2),
     ].flat(),
     //Extra actions added to community board (choice of actions depends on number of players)
     additional: [
@@ -97,6 +101,34 @@ TODO: Some further action ideas (if I add cards, some of these might work there,
 - bribes of some kind - reduce taxes/costs
 - some multi day actions have a min time & max time, you can choose to take longer to guarantee you'll get it next turn
 */
+
+let card = (t, f, d, a) => ({title: t, flavor: f, desc: d, action: a});
+
+const cardList = [
+    //   title              flavor                                                              desc                                                                   action
+    card('Lucrative Offer', 'Entice a competitor\'s employee with a tempting signing bonus',    'Take a worker from another player & pay $5 to the supply',             action('Poach Worker', 2)),
+    card('Vacation',        'Everybody needs a day off',                                        'All players set one worker aside for this round, pay one less salary'),
+    card('Doctor\'s Appointment',    'Employee health is our priority', 'One of your employees is not moved at the end of this round'),
+    card('Sabotage', 'Not just a Beastie Boys song', 'The player to your right marks one of your machines as damaged'),
+    card('Corporate Espionage', 'Guard your secrets carefully', 'Choose an opponent and duplicate one of their actions this round', action('Send Spy', 1)),
+    //Found Keys - use somebody else's private action
+    //Strike - can't remove equipment this turn
+    //Disassembly - break an A into 2 B or a B into 2 C (action)
+    //Night Shift - place two workers at end of round, resolve actions right away (action)
+    //Awards Banquet - +50% B & C earned this round
+    //Send for Coffee - One multi-day worker skips a space at the end of the round (action)
+    //Taxes - Everybody pay 10% of equipment value (round up)
+    //Protection - All other players pay you $1/worker (action)
+    //Greased Palms - -10 widgets
+    //Fell of a Truck - +10 materials
+    //OSHA inspection - pay $5 fine if materials + widgets > 20
+    //Temporary Shutdown - Produce half of the normal widgets (round up) (action)
+    //World Cup (distraction) - all players decrease B & C earned by 1
+    //Hire Consultant - pay $5, get an extra worker this round (action)
+    //Antiques Collector - All can sell up to 10 widgets or 50% of widgets for double price
+    //Museum Donation - Remove one equipment, don't get money for it (action)
+    //Intern - get an extra worker this round, only usable on B & C actions
+];
 
 const playerActions = actionList.player;
 const communityActions = actionList.basic;

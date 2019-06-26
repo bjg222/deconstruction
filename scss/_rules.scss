@@ -24,7 +24,7 @@
         background: whitesmoke;
         box-shadow: 0 0.2em 0.25em 0.05em black;
     }
-    #{headings()} {
+    h1, h2, h3, h4, h5, h6 {
         margin-bottom: 0.25em;
         margin-top: 0.5em;
     }

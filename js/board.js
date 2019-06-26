@@ -152,7 +152,7 @@ class SupplyBoard extends Board {
     get tiles() {
         if (!this._.tiles)
             this._.tiles = new TileSupply();
-        return this._.tiles
+        return this._.tiles;
     }
 
     get materials() {
@@ -164,25 +164,25 @@ class SupplyBoard extends Board {
     get widgets() {
         if (!this._.widgets)
             this._.widgets = new WidgetSupply();
-        return this._.widgets
+        return this._.widgets;
     }
 
     get coins() {
         if (!this._.coins)
             this._.coins = new CoinSupply();
-        return this._.coins
+        return this._.coins;
     }
 
     get workers() {
         if (!this._.workers)
             this._.workers = new WorkerSupply();
-        return this._.workers
+        return this._.workers;
     }
 
     get firstplayers() {
         if (!this._.firstplayers)
             this._.firstplayers = new FirstPlayerSupply();
-        return this._.firstplayers
+        return this._.firstplayers;
     }
 
     get $() {
@@ -205,7 +205,7 @@ class ActionBoard extends Board {
     }
 
     get actions() {
-        return this.children
+        return this.children;
     }
 
     addAction(...args) {
@@ -219,7 +219,7 @@ class ActionBoard extends Board {
 
 class CounterBoard extends Board {
     constructor() {
-        super('counter')
+        super('counter');
     }
 
     addCounter(...args) {
@@ -248,4 +248,42 @@ class CounterBoard extends Board {
         return this._.obj;
     }
 
+}
+
+class Card extends Board {
+    constructor(title, flavor, desc, action) {
+        super('card');
+        this._.title = title;
+        this._.flavor = flavor;
+        this._.desc = desc;
+        if (action)
+            this._.children.push(action);
+    }
+
+    get title() {
+        return this._.title;
+    }
+
+    get flavor() {
+        return this._.flavor;
+    }
+
+    get desc() {
+        return this._.desc;
+    }
+
+    get action() {
+        return this._.children[0];
+    }
+
+    get $() {
+        if (this._.obj)
+            return this._.obj;
+        super.$;
+        this._.obj.append(util.makeTextDiv('title', undefined, this.title));
+        this._.obj.append(util.makeTextDiv('flavor', undefined, this.flavor));
+        this._.obj.append(this.action.$);
+        this._.obj.append(util.makeTextDiv('desc', undefined, this.desc));
+        return this._.obj;
+    }
 }

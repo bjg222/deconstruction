@@ -6,7 +6,7 @@
 
 html {
   font-size: 13px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .table {
@@ -79,7 +79,7 @@ html {
   grid: repeat(5, 6.5rem)/repeat(10, 6.5rem);
 }
 .board.player > :first-child {
-  grid-area: 1 / 1 / 2 / 2;
+  grid-area: 1/1/2/2;
   display: flex;
   place-content: center;
   place-items: center;
@@ -90,7 +90,7 @@ html {
   width: 4rem;
   height: 4rem;
   place-self: center;
-  grid-area: 2 / 1 / 3 / 2;
+  grid-area: 2/1/3/2;
 }
 .board.player.player-1 {
   background: lightblue;
@@ -130,6 +130,42 @@ html {
   grid: repeat(1, 13.3rem)/repeat(1, 10rem);
   background: slategray;
 }
+.board.card {
+  grid-template-areas: "title  title" "flavor flavor" "desc   action";
+  grid-template-rows: 2rem 2.5rem 6.5rem;
+  grid-template-columns: 10rem 6.5rem;
+  grid-auto-rows: 0;
+  place-items: center;
+  background: lightsteelblue;
+}
+.board.card > .title {
+  height: 100%;
+  width: 100%;
+  background: black;
+  color: white;
+  font-size: 1.1rem;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  grid-area: title;
+}
+.board.card > .flavor {
+  text-align: center;
+  grid-area: flavor;
+}
+.board.card > .desc {
+  grid-area: desc-start/desc-start/action-end/action-end;
+  font-size: 0.8rem;
+  text-align: center;
+}
+.board.card > .action {
+  width: 6.5rem;
+  height: 6.5rem;
+  grid-area: action;
+}
+.board.card > .action ~ .desc {
+  grid-area: desc;
+}
 
 .supply:not(.board) {
   display: grid;
@@ -144,16 +180,16 @@ html {
 .supply:not(.board) .title {
   font-size: 0.9rem;
   place-self: center end;
-  grid-area: -2 / 1 / -1 / -1;
+  grid-area: -2/1/-1/-1;
   text-transform: capitalize;
 }
 .supply:not(.board) .total {
   font-size: 0.9rem;
   place-self: center start;
-  grid-area: -2 / 1 / -1 / -1;
+  grid-area: -2/1/-1/-1;
 }
 .supply:not(.board) .total:empty::after {
-  content: '0';
+  content: "0";
 }
 .board.supply .supply.widget:not(.board),
 .board.supply .supply.material:not(.board),
@@ -161,22 +197,22 @@ html {
 .board.supply .supply.firstplayer:not(.board) {
   grid-template-rows: repeat(47, 0.1rem) 1.25rem;
 }
-.board.supply .supply.tile:not(.board), .board.supply .supply.coin:not(.board) {
+.board.supply .supply.coin:not(.board), .board.supply .supply.tile:not(.board) {
   grid-template-rows: repeat(115, 0.1rem) 1.25rem;
 }
-.board.supply .supply.widget:not(.board),
+.board.supply .supply.coin:not(.board), .board.supply .supply.widget:not(.board),
 .board.supply .supply.material:not(.board),
 .board.supply .supply.indicator:not(.board),
-.board.supply .supply.firstplayer:not(.board), .board.supply .supply.coin:not(.board) {
+.board.supply .supply.firstplayer:not(.board) {
   grid-template-columns: repeat(64, 0.1rem);
 }
 .board.supply .supply.tile:not(.board) {
   grid-template-columns: repeat(137, 0.1rem);
 }
-.board.player .supply.tile:not(.board), .board.player .supply.widget:not(.board),
+.board.player .supply.coin:not(.board), .board.player .supply.widget:not(.board),
 .board.player .supply.material:not(.board),
 .board.player .supply.indicator:not(.board),
-.board.player .supply.firstplayer:not(.board), .board.player .supply.coin:not(.board) {
+.board.player .supply.firstplayer:not(.board), .board.player .supply.tile:not(.board) {
   grid-template-rows: repeat(47, 0.1rem) 1.25rem;
 }
 .board.player .supply.widget:not(.board),
@@ -185,26 +221,26 @@ html {
 .board.player .supply.firstplayer:not(.board) {
   grid-template-columns: repeat(128, 0.1rem);
 }
-.board.player .supply.tile:not(.board), .board.player .supply.coin:not(.board) {
+.board.player .supply.coin:not(.board), .board.player .supply.tile:not(.board) {
   grid-template-columns: repeat(195, 0.1rem);
 }
 .board.supply .supply:not(.board).tile {
-  grid-area: 1 / 1 / 3 / 3;
+  grid-area: 1/1/3/3;
 }
 .board.player .supply:not(.board).tile {
-  grid-area: 5 / 6 / 6 / 9;
+  grid-area: 5/6/6/9;
 }
 .board.supply .supply:not(.board).widget {
-  grid-area: 1 / 3 / 2 / 4;
+  grid-area: 1/3/2/4;
 }
 .board.player .supply:not(.board).widget {
-  grid-area: 5 / 9 / 6 / 11;
+  grid-area: 5/9/6/11;
 }
 .board.supply .supply:not(.board).material {
-  grid-area: 2 / 3 / 3 / 4;
+  grid-area: 2/3/3/4;
 }
 .board.player .supply:not(.board).material {
-  grid-area: 5 / 1 / 6 / 3;
+  grid-area: 5/1/6/3;
 }
 .supply:not(.board).firstplayer {
   display: flex;
@@ -221,13 +257,13 @@ html {
   display: none;
 }
 .board.supply .supply:not(.board).firstplayer {
-  grid-area: 1 / 6 / 3 / 7;
+  grid-area: 1/6/3/7;
 }
 .board.supply .supply:not(.board).coin {
-  grid-area: 1 / 4 / 3 / 5;
+  grid-area: 1/4/3/5;
 }
 .board.player .supply:not(.board).coin {
-  grid-area: 5 / 3 / 6 / 6;
+  grid-area: 5/3/6/6;
 }
 .supply:not(.board).worker {
   display: flex;
@@ -250,10 +286,10 @@ html {
   margin: 0.2rem;
 }
 .board.supply .supply:not(.board).worker {
-  grid-area: 1 / 5 / 3 / 6;
+  grid-area: 1/5/3/6;
 }
 .board.player .supply:not(.board).worker {
-  grid-area: 1 / 3 / 2 / 7;
+  grid-area: 1/3/2/7;
 }
 
 .action {
@@ -344,10 +380,10 @@ html {
   font-size: 1.2rem;
 }
 .board.player .counter:not(.board).consumption {
-  grid-area: 3 / 1 / 5 / 2;
+  grid-area: 3/1/5/2;
 }
 .board.player .counter:not(.board).production {
-  grid-area: 2 / 10 / 5 / 11;
+  grid-area: 2/10/5/11;
 }
 
 .space.firstplayer {
@@ -356,7 +392,7 @@ html {
   place-items: center;
 }
 .board.player .space.firstplayer {
-  grid-area: 1 / 2 / 2 / 3;
+  grid-area: 1/2/2/3;
 }
 
 .item.tile {
@@ -366,7 +402,7 @@ html {
   color: black;
   border: darkslategray 0.1rem solid;
   display: grid;
-  grid-template: '    .         .    ' 1fr '  bolts     bolts  ' auto 'circuits  circuits ' auto '    .         .    ' 2fr ' price   production' auto '    .         .    ' 1fr / 1fr 1fr;
+  grid-template: "    .         .    " 1fr "  bolts     bolts  " auto "circuits  circuits " auto "    .         .    " 2fr " price   production" auto "    .         .    " 1fr/1fr 1fr;
   place-content: center;
   place-items: center;
 }
@@ -380,14 +416,14 @@ html {
   grid-area: bolts;
 }
 .item.tile .bolts::after {
-  content: 'B';
+  content: "B";
   margin-left: 0.2rem;
 }
 .item.tile .circuits {
   grid-area: circuits;
 }
 .item.tile .circuits::after {
-  content: 'C';
+  content: "C";
   margin-left: 0.2rem;
 }
 .item.tile .price,
@@ -400,24 +436,24 @@ html {
   grid-area: price;
 }
 .item.tile .price::before {
-  content: '$';
+  content: "$";
 }
 .item.tile .production {
   grid-area: production;
 }
 .item.tile .production::before {
-  content: '+';
+  content: "+";
 }
 .item.tile .bolts:empty::after,
 .item.tile .circuits:empty::after,
 .item.tile .price:empty::before,
 .item.tile .production:empty::before {
-  content: '';
+  content: "";
 }
 .item.tile .category {
   font-size: 2.2rem;
   text-transform: capitalize;
-  grid-area: 1 / 1 / -3 / -1;
+  grid-area: 1/1/-3/-1;
 }
 .item.tile.face-down .bolts, .item.tile.face-down .circuits, .item.tile.face-down .production, .item.tile.face-up .category {
   visibility: hidden;
@@ -473,7 +509,7 @@ html {
   position: relative;
 }
 .item.firstplayer::after {
-  content: '1';
+  content: "1";
   position: absolute;
   top: 0;
   left: 0;
@@ -526,7 +562,7 @@ html {
   position: relative;
 }
 .item.worker.trained::before {
-  content: ' ';
+  content: " ";
   white-space: pre;
   position: absolute;
   top: -0.01rem;
@@ -567,8 +603,7 @@ html {
 .dragging-widget,
 .dragging-tile,
 .dragging-worker,
-.dragging-indicator
-.dragging-firstplayer {
+.dragging-indicator .dragging-firstplayer {
   cursor: grabbing;
 }
 .dragging-coin div,
@@ -576,8 +611,7 @@ html {
 .dragging-widget div,
 .dragging-tile div,
 .dragging-worker div,
-.dragging-indicator
-.dragging-firstplayer div {
+.dragging-indicator .dragging-firstplayer div {
   cursor: grabbing;
 }
 

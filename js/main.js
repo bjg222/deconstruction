@@ -4,6 +4,7 @@ $(document).ready(function() {
     let nextPlayer = 0;
     table.prependTo('body');
     actionList.basic.forEach(a => table.community.actions.addAction(new Action(a.title, a.workers).flip()));
+    util.shuffle(actionList.advanced).forEach(a => table.community.actions.addAction(new Action(a.title, a.workers)));
     addSupplyItems(supplyStartsWith, table.community.supplies);
     $('#add-player').on('click', ev => {
         if (players == maxPlayers)
@@ -23,13 +24,17 @@ $(document).ready(function() {
         players ++;
         while (table.community.actions.actions.length > actionList.basic.length)
             table.community.actions.removeAction();
-        util.shuffle(actionList.additional.slice(0,players).map((as, i) => as.map(a => new Action(a.title, a.workers, i+1))).flat()).slice(0,players*3).forEach(a => table.community.actions.addAction(a));
+        util.shuffle([
+            actionList.advanced.map(a => new Action(a.title, a.workers)).flat(),
+            util.shuffle(actionList.additional.slice(0,players).map((as, i) => as.map(a => new Action(a.title, a.workers, i+1))).flat()).slice(0,players*3)
+        ].flat()).forEach(a => table.community.actions.addAction(a));
         addSupplyItems(supplyStartsWithPerPlayer, table.community.supplies);
         if (players == maxPlayers)
             $('#add-player').prop('disabled', true);
     });
     $('#show-rules').on('click', ev => $('#rules').css('display', 'flex'));
     $('#hide-rules').on('click', ev => $('#rules').hide());
+    table.addSection(new Card('Signing Bonus Offer', 'Poach a competitor\'s employee with a lucrative offer!', 'Take a worker from another player & pay $5 to the supply', new Action('Poach Worker', 2).flip()));
 })
 
 function addSupplyItems(counts, board, player) {

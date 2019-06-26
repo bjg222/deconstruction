@@ -63,4 +63,42 @@ $counter-col-width: 10rem;
         grid: repeat(1, $counter-row-height) / repeat(1, $counter-col-width);
         background: slategray;
     }
+    &.card {
+        grid-template-areas: "title  title"
+                             "flavor flavor"
+                             "desc   action";
+        grid-template-rows: 2rem 2.5rem $action-row-height;
+        grid-template-columns: 10rem $action-col-width;
+        grid-auto-rows: 0;
+        place-items: center;
+        background: lightsteelblue;
+        & > .title {
+            height: 100%;
+            width: 100%;
+            background: black;
+            color: white;
+            font-size: 1.1rem;
+            display: flex;
+            place-content: center;
+            place-items: center;
+            grid-area: title;
+        }
+        & > .flavor {
+            text-align: center;
+            grid-area: flavor;
+        }
+        & > .desc {
+            grid-area: desc-start / desc-start / action-end / action-end;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        & > .action {
+            width: $action-col-width;
+            height: $action-row-height;
+            grid-area: action;
+            & ~ .desc {
+                grid-area: desc;
+            }
+        }
+    }
 }
