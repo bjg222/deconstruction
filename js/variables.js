@@ -57,7 +57,7 @@ const actionList = {
         ].flat(),
         //With 3+ players
         [
-            action('+2 Workers',    1),
+            action('2 Temp Workers',1),
             action('Scrap Tile',    3),
             action('-1 B',          1),
             action('-1 C',          1),
@@ -112,7 +112,7 @@ const cardList = [
     card('Sabotage',                'Not just a Beastie Boys song',                         'The player to your right marks one of your machines as damaged'),
     card('Corporate Espionage',     'Guard your secrets carefully',                         'Choose an opponent and duplicate one of their actions this round',         action('Send Spy', 1)),
     card('Found Keycard',           'You\'re just testing their security',                  'use somebody else\'s private action'),
-    card('Strike',                  'Collective bargaiing at its finest',                   'all players can\'t remove equipment this turn'),
+    card('Strike',                  'Collective bargaining at its finest',                  'all players can\'t remove equipment this turn'),
     card('Disassembly',             'What happens if I take this piece off?',               'break an A into 2 B or a B into 2 C',                                      action('Dissasemble', 1)),
     card('Night Shift',             'Who needs sleep?',                                     'place two workers at end of round, resolve actions right away',            action('Night Shift', 1)),
     card('Awards Banquet',          'Motivated employees are productive employees',         '+50% B & C earned this round'),
@@ -124,11 +124,12 @@ const cardList = [
     card('OSHA inspection',         'Messy factories lead to accidents',                    'pay $5 fine if materials + widgets > 20'),
     card('Temporary Shutdown',      'We can trun this off just for a little while',         'Produce half of the normal widgets (round up)',                            action('Shutdown', 1)),
     card('World Cup',               'Distractions are everywh -- GOOOOOAAAALLLL',           'all players decrease B & C earned by 1'),
-    card('Hire Consultant',         'Finding synergies for increased efficiency',           'pay $5, place 2 workers during your first placement',                      action('Hire Consultant', 1)),
+    card('Hire Consultant',         'Finding synergies for increased efficiency',           'pay $5, place 2 workers during your first placement next turn',            action('Hire Consultant', 1)),
     card('Antiques Collector',      'One man\'s trash...',                                  'All can sell widgets up to greater of 10  or 50% for double price'),
     card('Museum Donation',         'Preserved for posterity',                              'Remove one equipment, don\'t get money for it',                            action('Donate', 1)),
     card('Intern',                  'Free, but inexperienced, labor',                       'get an extra worker this round, only usable on B & C actions'),
     card('Accelerated Training',    'We\'ve optimized our courses for better retention',    'train a worker',                                                           action('Train Worker', 1)),
+    card('Employee of the Month',   'Comes with a premium parking spot',                    'Take the first player marker',                                             action('First Player', 1))
 ];
 
 let cardDrawPile = util.shuffle([...cardList]);
