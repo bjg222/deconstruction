@@ -13,6 +13,13 @@ html {
 //     position: relative;
 // }
 
+div::-webkit-scrollbar {
+    height: 1px;
+    &-thumb {
+        background: lightslategray;
+    }
+}
+
 @import 'table';
 @import 'board';
 @import 'supply';
